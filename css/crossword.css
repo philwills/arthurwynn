@@ -1,0 +1,104 @@
+* {
+	margin: 0;
+	padding: 0;
+} 
+
+* html input {
+#            padding: 0 0.5em 0.125em;
+#            margin: -0.05em 0;
+}
+
+body {
+	font-family: geneva, sans-serif;
+	font-size: 90%;
+	color: #000;
+	margin: 1em;
+}
+
+#gridbuttons {
+}
+
+#grid {
+	background-color: 555;
+	float: left;
+}
+
+#clues {
+	float: left;
+	padding-left: 1em;
+}
+
+form {
+	position: relative;
+}
+
+#grid div {
+	position: absolute;
+}
+
+ol {
+	list-style: none;
+}
+
+#grid ol li {
+	display: block;
+	float: left;
+}
+
+#grid input {
+	border: 1px solid #000;
+	width: 2em; 
+	height: 2em;
+	text-transform: uppercase;
+	text-align: middle;
+	vertical-align: middle;
+	padding: 0.3em 0.4em 0.1em 0.4em;
+	font-size: 1em;
+}
+
+fieldset {
+	border: none;
+}
+
+legend {
+	display: none;
+}
+
+div.down {
+	width: 2em;
+}
+
+fieldset ol li span {
+	position: absolute;
+	color: #333;
+	font-size: 0.7em;
+	margin: 0 0.1em;
+	z-index: 2;
+	font-weight: bold;
+}
+
+ol.row li {
+	float: none;
+}
+
+ol.row li ol li {
+	float: left;
+}
+
+#clues label {
+	cursor: pointer;
+}
+
+#clues label.active {
+	font-weight: bold;
+	font-size: 110%;
+	color: blue;
+}
+
+div.active {
+	z-index: 1;
+}
+
+div.active input {
+	background-color: #EEEEEE;
+}

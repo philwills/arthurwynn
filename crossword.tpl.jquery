@@ -1,0 +1,228 @@
+<html>
+	<head>
+		<title>Crossword {{crossword.name}}</title>
+		<link rel="stylesheet" type="text/css" href="/css/crossword.css"/>
+		<style type="text/css">
+		#grid {
+			width: {{crossword.grid_width}}em; 
+			height: {{crossword.grid_height}}em; 
+		}
+		#buttons {
+			position: absolute;
+			top: {{crossword.grid_height}}em;
+		}
+		</style>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript">
+		var active_word;
+
+		$(document).ready(function () {
+			var inputs = $('#grid input');
+
+			inputs.focus( function(e) {
+				this.select();
+
+				activate_word(this);
+			});
+
+			inputs.click( function(e) {
+				var word = $(this).closest('div');
+				var intersecting_letter = getIntersectingLetter(this);
+				if (intersecting_letter && active_word && word.id == active_word.id) {
+					deactivate_word(this);
+					activate_word(intersecting_letter);
+				} 
+			});
+
+			inputs.blur( function(e) {
+				deactivate_word(this);
+				var intersecting_letter = getIntersectingLetter(this);
+				if (intersecting_letter) {
+					deactivate_word(intersecting_letter);
+				}
+			});
+
+			inputs.keyup( function(e) {
+				copyChangeToIntersectingLetter($(this));
+
+				if (e.key == 'tab') {
+					if (e.shift) {
+						if ($(this).closest('div').prev('div')) {
+							$(this).closest('div').prev('div').find('input').focus();
+						}
+					} else {
+						if ($(this).closest('div').next('div')) {
+							$(this).closest('div').next('div').find('input').focus();
+						}
+					}
+					e.preventDefault();
+					return;
+				}
+
+				var id = this.id;
+				var intersect = getIntersectingLetter($(this));
+				if ((e.key == 'left' && id.indexOf('across') != -1) || (e.key == 'up' && id.indexOf('down') != -1)) {
+					focusOnPreviousInput(this);
+					return;
+				} else if (e.key == 'left' || e.key == 'up') {
+					if (intersect) {
+						focusOnPreviousInput(intersect);
+					}
+					return;
+				}
+
+				if ((e.key == 'right' && id.indexOf('across') != -1) || (e.key == 'down' && id.indexOf('down') != -1)) {
+					focusOnNextInput(this);
+					return;
+				} else if (e.key == 'right' || e.key == 'down') {
+					if (intersect) {
+						focusOnNextInput(intersect);
+					}
+					return;
+				}
+
+				focusOnNextInput($(this));
+			});
+
+			$('#label').click( function(e) {
+				if (active_word) {
+					deactivate_word(active_word.find('input')[0]);
+				}
+				activate_word($('#' + $(this).attr('for')));
+				e.preventDefault();
+			});
+
+			$('#check').click( function(e) {
+				active_word.find('input').each(function(square) {
+					if (square.value.toLowerCase() != solutions[square.id].toLowerCase()) {
+						square.value = '';
+						copyChangeToIntersectingLetter(square);
+					}
+				});
+			});
+
+			$('#check-all').click( function(e) {
+				inputs.each(function(square) {
+					if (square.value.toLowerCase() != solutions[square.id].toLowerCase()) {
+						square.value = '';
+						copyChangeToIntersectingLetter(square);
+					}
+				});
+			});
+
+			$('#cheat').click( function(e) {
+				active_word.find('input').each(function(square) {
+					square.value = solutions[square.id].toLowerCase();
+					copyChangeToIntersectingLetter(square);
+				});
+			});
+
+			$('#clear').click( function(e) {
+				active_word.find('input').each(function(square) {
+					square.value = '';
+					copyChangeToIntersectingLetter(square);
+				});
+			});
+
+			$('#save').click( function(e) {
+				var form_values = $(this).closest('form').serialize();
+				alert($(this).closest('form').attr('method'));
+				Cookie.write('crossword', form_values);
+			});
+		});
+
+		function focusOnNextInput(element) {
+			var nextClue = element.closest().next();
+			if(nextClue) {
+				nextClue.find('input').focus();
+			}
+		}
+
+		function focusOnPreviousInput(element) {
+			var previousClue = element.closest().prev();
+			if(previousClue) {
+				previousClue.find('input').focus();
+			}
+		}
+
+		function getIntersectingLetter(letter) {
+			if(intersections[letter.id]) {
+				return $(intersections[letter.id]);
+			}
+			return null;
+		}
+			
+
+		function copyChangeToIntersectingLetter(letter) {
+			var intersect = getIntersectingLetter(letter);
+			if (intersect) {
+				intersect.value = letter.value;
+			}
+		}
+
+		function activate_word(letter) {
+			var word = $(letter).closest('div');
+			word.addClass('active');
+			$(word.id + '-clue').addClass('active');
+			active_word = word;
+		}
+
+		function deactivate_word(letter) {
+			var word = $(letter).closest('div');
+			word.removeClass('active');
+			$(word.id + '-clue').removeClass('active');
+		}
+
+		var intersections = new Array();
+		{% for intersection in crossword.intersections.items %}
+			intersections["{{intersection.0}}"] = "{{intersection.1}}";
+			intersections["{{intersection.1}}"] = "{{intersection.0}}";
+		{% endfor %}
+		var solutions = new Array();
+		{% for word in crossword.words %}
+			{% for char in word.solution|make_list %}
+				solutions["{{ word.number }}-{{ word.direction}}-{{ forloop.counter }}"] = "{{char}}";
+			{% endfor %}
+		{% endfor %}
+		</script>
+	</head>
+	<body>
+	<form method="POST">
+		<div id="grid">
+			{% for word in crossword.words %}
+			<div id="{{ word.number }}-{{ word.direction }}" style="left: {{ word.dis_x }}em; top: {{ word.dis_y }}em;" class="{{ word.direction }}">
+				<fieldset>
+					<legend>{{ word.number }} {{ word.direction }}</legend>
+					<ol>
+				{% for char in word.solution|make_list %}
+						<li>{% if forloop.first %}<span>{{ word.number }}</span>{% endif %}
+							<input id="{{ word.number }}-{{ word.direction}}-{{ forloop.counter }}" type="text" size="1" maxlength="1" />
+						</li>
+				{% endfor %}
+					</ol>
+			</div>
+			{% endfor %}
+		</div>
+		<div id="buttons">
+			<input id="check" type="button" value="Check" />
+			<input id="cheat" type="button" value="Cheat" />
+			<input id="clear" type="button" value="Clear" />
+			<input id="check-all" type="button" value="Check All" />
+			<input id="save" type="button" value="Save" />
+		</div>
+	<div id="clues">
+		<h4>Across</h4>
+        <ol>
+        {% for word in crossword.across_words %}
+            <li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
+        {% endfor %}
+        </ol>
+		<h4>Down</h4>
+        <ol>
+        {% for word in crossword.down_words %}
+            <li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
+        {% endfor %}
+        </ol>
+    </div>
+	</form>
+</html>
