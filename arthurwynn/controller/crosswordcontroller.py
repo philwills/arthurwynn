@@ -28,6 +28,17 @@ class CrosswordPage(ModelAndViewPage):
 	def get_view_name(self):
 		return 'crossword'
 
+class MicroappCrosswordPage(ModelAndViewPage):
+	def get(self, type, number):
+		crosswords = Crossword.all().filter("type =", type).filter("number =", int(number))
+		model = {
+			'crossword': crosswords[0],
+		}
+		self.render(self.get_view_name(), model)
+
+	def get_view_name(self):
+		return 'crossword'
+
 class CrosswordCreationPage(ModelAndViewPage):
 	def get(self):
 		self.render('crosswordcreate')
@@ -107,6 +118,12 @@ class CrosswordUploadPage(ModelAndViewPage):
 		puzzle = root.find('./' + namespace + 'rectangular-puzzle/')
 		title = puzzle.find('./' + namespace + 'metadata/' +namespace + 'title')
 		crossword.name = title.text
+		if title.text[0:4] == 'gdn.':
+			crossword.type = title.text[4:]
+		creator = puzzle.find('./' + namespace + 'metadata/' +namespace + 'creator')
+		crossword.creator = creator.text
+		identifier = puzzle.find('./' + namespace + 'metadata/' +namespace + 'identifier')
+		crossword.number = int(identifier.text)
 		grid = puzzle.find('./' + namespace + 'crossword/' +namespace + 'grid')
 		crossword.size(int(grid.get('width')))
 		letters = {}
@@ -132,6 +149,7 @@ class CrosswordUploadPage(ModelAndViewPage):
 application = webapp.WSGIApplication([
 									('/', CrosswordListPage),
 									('/crossword', CrosswordPage),
+									(r'/microapp/(.*)/(.*)', MicroappCrosswordPage),
                                     ('/create', CrosswordCreationPage),
                                     ('/create/grid', CrosswordGridPage),
                                     ('/create/clues', CrosswordCluePage),
