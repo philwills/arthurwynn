@@ -149,7 +149,7 @@ class CrosswordUploadPage(ModelAndViewPage):
 application = webapp.WSGIApplication([
 									('/', CrosswordListPage),
 									('/crossword', CrosswordPage),
-									(r'/microapp/(.*)/(.*)', MicroappCrosswordPage),
+									(r'/microapp/resource/(.*)/(.*)', MicroappCrosswordPage),
                                     ('/create', CrosswordCreationPage),
                                     ('/create/grid', CrosswordGridPage),
                                     ('/create/clues', CrosswordCluePage),
