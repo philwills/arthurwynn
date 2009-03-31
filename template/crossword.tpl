@@ -204,6 +204,7 @@
 		</script>
 	</head>
 	<body>
+	<h1>{{ crossword.type }} {{ crossword.number }} by {{ crossword.creator }}</h1>
 	<form method="POST">
 		<div id="grid">
 			{% for word in crossword.words %}
