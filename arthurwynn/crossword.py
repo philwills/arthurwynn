@@ -2,6 +2,9 @@ from google.appengine.ext import db
 
 class Crossword(db.Model):
 	name = db.StringProperty()
+	number = db.IntegerProperty()
+	type = db.StringProperty()
+	creator = db.StringProperty()
 	num_grid_rows = db.IntegerProperty()
 	num_grid_cols = db.IntegerProperty()
 	across_solutions = db.StringListProperty()
