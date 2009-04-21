@@ -11,4 +11,4 @@ handlers:
   static_dir: js
 
 - url: /.*
-  script: arthurwynn/controller/crosswordcontroller.py
+  script: arthurwynn/pathmapping.py
