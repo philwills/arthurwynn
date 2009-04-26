@@ -136,23 +136,6 @@ class Crossword(db.Model):
 				if (col_num - 1, row_num - 1) in across_coords or (col_num - 1, row_num - 1) in down_coords:
 					number = number + 1
 				
-				
-class StockCrossword(Crossword):
-	def __init__(self):
-		self.name = "Stock Crossword"
-		self.num_grid_rows = 13
-		self.num_grid_cols = 13
-		self.across_nums = [1, 4, 8, 9, 10, 11, 12, 17, 19, 21, 22, 23,24,]
-		self.across_clues = ["FILTHY", "SWITCH", "LIBEL", "HUSBAND", "SURGEON", "FRAIL", "AMARYLLIS", "DUMPY", "OBLOQUY", "GIMMICK", "MAORI", "OYSTER", "STEADY",]
-		self.across_solutions = ["FILTHY", "SWITCH", "LIBEL", "HUSBAND", "SURGEON", "FRAIL", "AMARYLLIS", "DUMPY", "OBLOQUY", "GIMMICK", "MAORI", "OYSTER", "STEADY",]
-		self.across_x = [0, 7, 0, 6, 0, 8, 2, 0, 6, 0, 8, 0, 7,]
-		self.across_y = [0, 0, 2, 2, 4, 4, 6, 8, 8, 10, 10, 12, 12,]
-		self.down_nums = [1, 2, 3, 5, 6, 7, 9, 13, 14, 15, 16, 18, 20,]
-		self.down_clues = ["FOLKSY", "LIBERIA", "HALVE", "WISTFUL", "TRALA", "HUDDLE", "HONKYTONK", "ANYTIME", "SEQUOIA", "ADAGIO", "TYPIFY", "MUMPS", "LIMIT",]
-		self.down_solutions = ["FOLKSY", "LIBERIA", "HALVE", "WISTFUL", "TRALA", "HUDDLE", "HONKYTONK", "ANYTIME", "SEQUOIA", "ADAGIO", "TYPIFY", "MUMPS", "LIMIT",]
-		self.down_x = [0, 2, 4, 8, 10, 12, 6, 4, 10, 0, 12, 2, 8,]
-		self.down_y = [0, 0, 0, 0, 0, 0, 2, 6, 6, 7, 7, 8, 8,]
-
 class Word:
 	def dis_x(self):
 		return self.x * 2
