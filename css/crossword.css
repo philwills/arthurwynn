@@ -19,13 +19,19 @@ body {
 }
 
 #grid {
-	background-color: 555;
+	background-color: #111;
 	float: left;
+}
+
+#wrapper #grid {
+	font-size: 1em;
+	line-height: 1;
 }
 
 #clues {
 	float: left;
 	padding-left: 1em;
+	width: 20em;
 }
 
 form {
@@ -43,6 +49,8 @@ ol {
 #grid ol li {
 	display: block;
 	float: left;
+	width: 2em; 
+	height: 2em;
 }
 
 #grid input {
@@ -52,8 +60,9 @@ ol {
 	text-transform: uppercase;
 	text-align: middle;
 	vertical-align: middle;
-	padding: 0.3em 0.4em 0.1em 0.4em;
+#	padding: 0.3em 0.4em 0.1em 0.4em;
 	font-size: 1em;
+	display: block;
 }
 
 fieldset {
@@ -70,7 +79,7 @@ div.down {
 
 fieldset ol li span {
 	position: absolute;
-	color: #333;
+	color: #111;
 	font-size: 0.7em;
 	margin: 0 0.1em;
 	z-index: 2;

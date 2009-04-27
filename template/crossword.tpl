@@ -1,3 +1,4 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
 <html>
 	<head>
 		<title>Crossword {{crossword.name}}</title>
@@ -10,6 +11,7 @@
 		#buttons {
 			position: absolute;
 			top: {{crossword.grid_height}}em;
+			width: {{crossword.grid_width}}em; 
 		}
 		</style>
 		<script type="text/javascript" src="/js/moo.js"></script>
@@ -244,4 +246,5 @@
         </ol>
     </div>
 	</form>
+	</body>
 </html>
