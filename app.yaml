@@ -4,6 +4,10 @@ runtime: python
 api_version: 1
 
 handlers:
+- url: /microapp/microapp.xml
+  static_files: microapp/microapp.xml
+  upload: microapp/microapp.xml
+
 - url: /css
   static_dir: css
 

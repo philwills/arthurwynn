@@ -14,7 +14,7 @@ from arthurwynn.user_crossword import *
 application = webapp.WSGIApplication([
 									('/', CrosswordListPage),
 									('/crossword', CrosswordPage),
-									(r'/microapp/resource/(.*)/(.*)', MicroappCrosswordPage),
+									(r'/microapp/resources/(.*)/(.*)', MicroappCrosswordPage),
                                     ('/create', CrosswordCreationPage),
                                     ('/create/grid', CrosswordGridPage),
                                     ('/create/clues', CrosswordCluePage),

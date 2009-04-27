@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<microapp provider="arthurwynn">
+	<resources>
+		<resource-definition name="quick"
+			path="quick/{key}"
+			display-name="Quick Crosswords">
+		</resource-definition>
+	</resources>
+</microapp>
