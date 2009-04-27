@@ -87,9 +87,11 @@
 					return;
 				}
 
-				if (e.key != 'backspace') { 
-					focusOnNextInput(this);
+				if (e.key == 'backspace') { 
+					focusOnPreviousInput(this);
+					return;
 				}
+				focusOnNextInput(this);
 			});
 
 			$$('label').addEvent('click', function(e) {
