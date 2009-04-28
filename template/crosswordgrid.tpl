@@ -1,9 +1,13 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
 		<title>Crossword {{crossword.name}}</title>
 		<link rel="stylesheet" type="text/css" href="/css/crossword.css"/>
 		<style type="text/css">
 			div#grid {
+				width: {{ crossword.grid_width }}em;
+			}
+			#grid ol li.row {
 				width: {{ crossword.grid_width }}em;
 			}
 		</style>

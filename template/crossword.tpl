@@ -87,6 +87,10 @@
 					return;
 				}
 
+				if (e.key == 'backspace') { 
+					focusOnPreviousInput(this);
+					return;
+				}
 				focusOnNextInput(this);
 			});
 
