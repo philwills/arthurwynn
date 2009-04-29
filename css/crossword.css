@@ -109,7 +109,7 @@ div.active {
 	z-index: 1;
 }
 
-div.active input {
+body #grid div.active input {
 	background-color: #e9e9e9;
 }
 

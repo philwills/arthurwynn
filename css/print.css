@@ -49,6 +49,11 @@ h4
 	width: auto;
 }
 
+fieldset ol li span 
+{
+	font-weight: normal
+}
+
 
 #clues div
 {
