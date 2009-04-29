@@ -3,6 +3,7 @@
 	<head>
 		<title>Crossword {{crossword.name}}</title>
 		<link rel="stylesheet" type="text/css" href="/css/crossword.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/print.css" media="print" />
 		<style type="text/css">
 		#grid {
 			width: {{crossword.grid_width}}em; 
@@ -214,6 +215,7 @@
 	<h1>{{ crossword.type }} {{ crossword.number }} by {{ crossword.creator }}</h1>
 	<form method="POST">
 		<div id="grid">
+		<img src="css/print-background.gif" alt="" id="print-background">
 			{% for word in crossword.words %}
 			<div id="{{ word.number }}-{{ word.direction }}" style="left: {{ word.dis_x }}em; top: {{ word.dis_y }}em;" class="{{ word.direction }}">
 				<fieldset>
@@ -237,18 +239,22 @@
 			<input id="revert-to-saved" type="button" value="Revert to Saved" />
 		</div>
 	<div id="clues">
-		<h4>Across</h4>
-        <ol>
-        {% for word in crossword.across_words %}
-            <li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
-        {% endfor %}
-        </ol>
-		<h4>Down</h4>
-        <ol>
-        {% for word in crossword.down_words %}
-            <li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
-        {% endfor %}
-        </ol>
+		<div>
+			<h4>Across</h4>
+			<ol>
+			{% for word in crossword.across_words %}
+				<li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
+			{% endfor %}
+			</ol>
+        </div>
+        <div>
+			<h4>Down</h4>
+			<ol>
+			{% for word in crossword.down_words %}
+				<li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
+			{% endfor %}
+			</ol>
+        </div>
     </div>
 	</form>
 	</body>
