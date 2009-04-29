@@ -1,3 +1,9 @@
+#grid
+{
+	float: none;
+	clear: left
+}
+
 body #grid input {
 	background-image: none;
 }
@@ -27,3 +33,26 @@ body #grid li input
 	border: 1px solid black
 }
 
+#buttons
+{
+	display: none;
+}
+
+h4
+{
+	margin-top: 1em;
+}
+
+#clues
+{
+	float: none;
+	width: auto;
+}
+
+
+#clues div
+{
+	float: left;
+	margin-right: 1em;
+	width: 8cm
+}

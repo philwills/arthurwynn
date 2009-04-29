@@ -238,18 +238,22 @@
 			<input id="revert-to-saved" type="button" value="Revert to Saved" />
 		</div>
 	<div id="clues">
-		<h4>Across</h4>
-        <ol>
-        {% for word in crossword.across_words %}
-            <li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
-        {% endfor %}
-        </ol>
-		<h4>Down</h4>
-        <ol>
-        {% for word in crossword.down_words %}
-            <li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
-        {% endfor %}
-        </ol>
+		<div>
+			<h4>Across</h4>
+			<ol>
+			{% for word in crossword.across_words %}
+				<li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
+			{% endfor %}
+			</ol>
+        </div>
+        <div>
+			<h4>Down</h4>
+			<ol>
+			{% for word in crossword.down_words %}
+				<li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
+			{% endfor %}
+			</ol>
+        </div>
     </div>
 	</form>
 	</body>
