@@ -3,6 +3,7 @@
 	<head>
 		<title>Crossword {{crossword.name}}</title>
 		<link rel="stylesheet" type="text/css" href="/css/crossword.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/print.css" media="print" />
 		<style type="text/css">
 		#grid {
 			width: {{crossword.grid_width}}em; 
@@ -213,6 +214,7 @@
 	<h1>{{ crossword.type }} {{ crossword.number }} by {{ crossword.creator }}</h1>
 	<form method="POST">
 		<div id="grid">
+		<img src="css/print-background.gif" alt="" id="print-background">
 			{% for word in crossword.words %}
 			<div id="{{ word.number }}-{{ word.direction }}" style="left: {{ word.dis_x }}em; top: {{ word.dis_y }}em;" class="{{ word.direction }}">
 				<fieldset>

@@ -1,0 +1,29 @@
+body #grid input {
+	background-image: none;
+}
+
+body #grid li input
+{
+	width: 99%;
+	height: 1.55em;
+	margin-left: 1px;
+	margin-bottom: 2px
+}
+
+
+#grid ol li {
+	width: 2em;
+	height: 2em;
+	overflow: hidden
+}
+
+#print-background {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: -1px;
+	left: -1px;
+	display: block;
+	border: 1px solid black
+}
+
