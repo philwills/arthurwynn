@@ -17,7 +17,7 @@ body {
 	position: relative;
 	border: 1px solid black;
 	border-left: none;
-	border-bottom: none;
+	border-top: none;
 }
 
 
@@ -47,20 +47,18 @@ ol {
 	height: 2em;
 }
 
-body #grid textarea {
+body #grid input {
 	font-family: sans-serif;
 	font-variant: small-caps;
 	font-size: 0.9em;	
 	text-align: center;
 	border: none;
-	height: 100%;
+	height: 1.65em;
 	width: 100%;
 	background-repeat: no-repeat;
-	background-position: left bottom;
+	background-position: left top;
 	background-image: url("border.gif");
-	line-height: 2.5;
-	resize: none;
-	overflow: hidden;
+	padding-top: 0.625em;
 }
 
 fieldset {
@@ -108,6 +106,6 @@ div.active {
 	z-index: 1;
 }
 
-div.active textarea {
+div.active input {
 	background-color: #e9e9e9;
 }

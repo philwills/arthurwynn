@@ -22,7 +22,7 @@
 		var active_word;
 
 		function crossword_init() {
-			var inputs = $('grid').getElements('textarea');
+			var inputs = $('grid').getElements('input');
 
 			inputs.addEvent('focus', function(e) {
 				this.select();
@@ -54,11 +54,11 @@
 				if (e.key == 'tab') {
 					if (e.shift) {
 						if (this.getParent('div').getPrevious('div')) {
-							this.getParent('div').getPrevious('div').getElement('textarea').focus();
+							this.getParent('div').getPrevious('div').getElement('input').focus();
 						}
 					} else {
 						if (this.getParent('div').getNext('div')) {
-							this.getParent('div').getNext('div').getElement('textarea').focus();
+							this.getParent('div').getNext('div').getElement('input').focus();
 						}
 					}
 					e.stop();
@@ -100,7 +100,7 @@
 			});
 
 			$('check').addEvent('click', function(e) {
-				active_word.getElements('textarea').each(function(square) {
+				active_word.getElements('input').each(function(square) {
 					if (square.value.toLowerCase() != solutions[square.id].toLowerCase()) {
 						square.value = '';
 						copyChangeToIntersectingLetter(square);
@@ -118,14 +118,14 @@
 			});
 
 			$('cheat').addEvent('click', function(e) {
-				active_word.getElements('textarea').each(function(square) {
+				active_word.getElements('input').each(function(square) {
 					square.value = solutions[square.id].toLowerCase();
 					copyChangeToIntersectingLetter(square);
 				});
 			});
 
 			$('clear').addEvent('click', function(e) {
-				active_word.getElements('textarea').each(function(square) {
+				active_word.getElements('input').each(function(square) {
 					square.value = '';
 					copyChangeToIntersectingLetter(square);
 				});
@@ -154,14 +154,14 @@
 		function focusOnNextInput(element) {
 			var nextClue = element.getParent().getNext();
 			if(nextClue) {
-				nextClue.getElement('textarea').focus();
+				nextClue.getElement('input').focus();
 			}
 		}
 
 		function focusOnPreviousInput(element) {
 			var previousClue = element.getParent().getPrevious();
 			if(previousClue) {
-				previousClue.getElement('textarea').focus();
+				previousClue.getElement('input').focus();
 			}
 		}
 
@@ -182,7 +182,7 @@
 
 		function activate_word(letter) {
 			if (active_word) {
-				deactivate_word(active_word.getElements('textarea')[0]);
+				deactivate_word(active_word.getElements('input')[0]);
 			}
 			var word = letter.getParent('div');
 			word.addClass('active');
@@ -220,7 +220,7 @@
 					<ol>
 				{% for char in word.solution|make_list %}
 						<li>{% if forloop.first %}<span>{{ word.number }}</span>{% endif %}
-							<textarea id="{{ word.number }}-{{ word.direction}}-{{ forloop.counter }}" name="{{ word.number }}-{{ word.direction}}-{{ forloop.counter }}" rows="1" cols="1" maxlength="1"></textarea>
+							<input id="{{ word.number }}-{{ word.direction}}-{{ forloop.counter }}" name="{{ word.number }}-{{ word.direction}}-{{ forloop.counter }}" maxlength="1">
 						</li>
 				{% endfor %}
 					</ol>
