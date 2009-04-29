@@ -48,7 +48,7 @@
 				}
 			});
 
-			inputs.addEvent('keyup', function(e) {
+			inputs.addEvent('keypress', function(e) {
 				copyChangeToIntersectingLetter(this);
 
 				if (e.key == 'tab') {
@@ -91,6 +91,7 @@
 					focusOnPreviousInput(this);
 					return;
 				}
+
 				focusOnNextInput(this);
 			});
 
