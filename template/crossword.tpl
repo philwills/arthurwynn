@@ -49,9 +49,16 @@
 				}
 			});
 
-			inputs.addEvent('keypress', function(e) {
-				copyChangeToIntersectingLetter(this);
+			inputs.addEvent('keyup', function(e) {
+				if (e.key != 'tab' && e.key != 'left' && e.key != 'up' && e.key != 'down' && e.key != 'right' && e.key != 'backspace') { 
+					copyChangeToIntersectingLetter(this);
+					if (!e.shift) {
+						focusOnNextInput(this);
+					}
+				}
+			});
 
+			inputs.addEvent('keypress', function(e) {
 				if (e.key == 'tab') {
 					if (e.shift) {
 						if (this.getParent('div').getPrevious('div')) {
@@ -92,8 +99,6 @@
 					focusOnPreviousInput(this);
 					return;
 				}
-
-				focusOnNextInput(this);
 			});
 
 			$$('label').addEvent('click', function(e) {
