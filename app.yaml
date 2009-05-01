@@ -4,11 +4,15 @@ runtime: python
 api_version: 1
 
 handlers:
-- url: /css
+- url: /microapp/microapp.xml
+  static_files: microapp/microapp.xml
+  upload: microapp/microapp.xml
+
+- url: /microapp/assets/css
   static_dir: css
 
-- url: /js
+- url: /microapp/assets/js
   static_dir: js
 
 - url: /.*
-  script: arthurwynn/controller/crosswordcontroller.py
+  script: arthurwynn/pathmapping.py

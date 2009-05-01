@@ -1,20 +1,17 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
 <html>
 	<head>
 		<title>Crossword {{crossword.name}}</title>
-		<link rel="stylesheet" type="text/css" href="/css/crossword.css"/>
-		<style type="text/css">
-		#grid {
-			width: {{crossword.grid_width}}em; 
-			height: {{crossword.grid_height}}em; 
-		}
-		#buttons {
-			position: absolute;
-			top: {{crossword.grid_height}}em;
-		}
-		</style>
-		<script type="text/javascript" src="/js/moo.js"></script>
+		<link rel="stylesheet" type="text/css" href="/microapp/assets/css/crossword.css"/>
+		<link rel="stylesheet" type="text/css" href="/microapp/assets/css/print.css" media="print" />
+		<script type="text/javascript" src="/microapp/assets/js/moo.js"></script>
+	</head>
+	<body>
 		<script type="text/javascript">
 		window.addEvent('domready', crossword_init);
+		if (addSafeLoadEvent) {
+			addSafeLoadEvent(crossword_init);
+		}
 		window.addEvent('domready', load_from_cookie);
 
 		var active_word;
@@ -47,8 +44,15 @@
 			});
 
 			inputs.addEvent('keyup', function(e) {
-				copyChangeToIntersectingLetter(this);
+				if (e.key != 'tab' && e.key != 'left' && e.key != 'up' && e.key != 'down' && e.key != 'right' && e.key != 'backspace') { 
+					copyChangeToIntersectingLetter(this);
+					if (!e.shift) {
+						focusOnNextInput(this);
+					}
+				}
+			});
 
+			inputs.addEvent('keypress', function(e) {
 				if (e.key == 'tab') {
 					if (e.shift) {
 						if (this.getParent('div').getPrevious('div')) {
@@ -85,7 +89,10 @@
 					return;
 				}
 
-				focusOnNextInput(this);
+				if (e.key == 'backspace') { 
+					focusOnPreviousInput(this);
+					return;
+				}
 			});
 
 			$$('label').addEvent('click', function(e) {
@@ -202,11 +209,10 @@
 			{% endfor %}
 		{% endfor %}
 		</script>
-	</head>
-	<body>
 	<h1>{{ crossword.type }} {{ crossword.number }} by {{ crossword.creator }}</h1>
 	<form method="POST">
-		<div id="grid">
+		<div id="grid" style="width: {{crossword.grid_width}}em; height: {{crossword.grid_height}}em;">
+		<img src="css/print-background.gif" alt="" id="print-background">
 			{% for word in crossword.words %}
 			<div id="{{ word.number }}-{{ word.direction }}" style="left: {{ word.dis_x }}em; top: {{ word.dis_y }}em;" class="{{ word.direction }}">
 				<fieldset>
@@ -214,14 +220,14 @@
 					<ol>
 				{% for char in word.solution|make_list %}
 						<li>{% if forloop.first %}<span>{{ word.number }}</span>{% endif %}
-							<input id="{{ word.number }}-{{ word.direction}}-{{ forloop.counter }}" name="{{ word.number }}-{{ word.direction}}-{{ forloop.counter }}" type="text" size="1" maxlength="1" />
+							<input id="{{ word.number }}-{{ word.direction}}-{{ forloop.counter }}" name="{{ word.number }}-{{ word.direction}}-{{ forloop.counter }}" maxlength="1">
 						</li>
 				{% endfor %}
 					</ol>
 			</div>
 			{% endfor %}
 		</div>
-		<div id="buttons">
+		<div id="buttons" style="position: absolute; top: {{crossword.grid_height}}em; width: {{crossword.grid_width}}em;">
 			<input id="check" type="button" value="Check" />
 			<input id="cheat" type="button" value="Cheat" />
 			<input id="clear" type="button" value="Clear" />
@@ -230,18 +236,23 @@
 			<input id="revert-to-saved" type="button" value="Revert to Saved" />
 		</div>
 	<div id="clues">
-		<h4>Across</h4>
-        <ol>
-        {% for word in crossword.across_words %}
-            <li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
-        {% endfor %}
-        </ol>
-		<h4>Down</h4>
-        <ol>
-        {% for word in crossword.down_words %}
-            <li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
-        {% endfor %}
-        </ol>
+		<div>
+			<h4>Across</h4>
+			<ol>
+			{% for word in crossword.across_words %}
+				<li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
+			{% endfor %}
+			</ol>
+        </div>
+        <div>
+			<h4>Down</h4>
+			<ol>
+			{% for word in crossword.down_words %}
+				<li><label id="{{word.number}}-{{word.direction}}-clue" for="{{ word.number }}-{{ word.direction }}-1">{{ word.number }}.  {{ word.clue }}</label></li>
+			{% endfor %}
+			</ol>
+        </div>
     </div>
 	</form>
+	</body>
 </html>
