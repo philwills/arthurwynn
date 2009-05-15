@@ -210,7 +210,7 @@
 		{% endfor %}
 		</script>
 	<h1>{{ crossword.type }} {{ crossword.number }} by {{ crossword.creator }}</h1>
-	<form method="POST">
+	<form id="crossword" method="POST">
 		<div id="grid" style="width: {{crossword.grid_width}}em; height: {{crossword.grid_height}}em;">
 		<img src="css/print-background.gif" alt="" id="print-background">
 			{% for word in crossword.words %}
@@ -226,14 +226,6 @@
 					</ol>
 			</div>
 			{% endfor %}
-		</div>
-		<div id="buttons" style="position: absolute; top: {{crossword.grid_height}}em; width: {{crossword.grid_width}}em;">
-			<input id="check" type="button" value="Check" />
-			<input id="cheat" type="button" value="Cheat" />
-			<input id="clear" type="button" value="Clear" />
-			<input id="check-all" type="button" value="Check All" />
-			<input id="save" type="button" value="Save" />
-			<input id="revert-to-saved" type="button" value="Revert to Saved" />
 		</div>
 	<div id="clues">
 		<div>
@@ -253,6 +245,14 @@
 			</ol>
         </div>
     </div>
+		<div id="buttons" >
+			<input id="check" type="button" value="Check" />
+			<input id="cheat" type="button" value="Cheat" />
+			<input id="clear" type="button" value="Clear" />
+			<input id="check-all" type="button" value="Check All" />
+			<input id="save" type="button" value="Save" />
+			<input id="revert-to-saved" type="button" value="Revert to Saved" />
+		</div>
 	</form>
 	</body>
 </html>

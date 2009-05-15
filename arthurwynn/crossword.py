@@ -24,7 +24,7 @@ class Crossword(db.Model):
 		self.num_grid_cols = size
 
 	def grid_height(self):
-		return self.num_grid_rows * 2;
+		return self.num_grid_rows * 2 + 0.1;
 
 	def grid_width(self):
 		return self.num_grid_cols * 2;

@@ -10,11 +10,17 @@ body {
 	margin: 1em;
 }
 
+#buttons {
+	clear: left;
+}
+
+#box #crossword {
+	font-size: 120%;
+}
 
 #grid {
 	background-color: #111;
 	float: left;
-	position: relative;
 	border: 1px solid black;
 	border-left: none;
 	border-top: none;
@@ -24,7 +30,7 @@ body {
 #clues {
 	float: left;
 	padding-left: 1em;
-	width: 20em;
+	width: 15em;
 	font-size: 0.9em;
 }
 
@@ -93,6 +99,10 @@ ol.row li {
 
 ol.row li ol li {
 	float: left;
+}
+
+#clues h4 {
+	font-weight: bold;
 }
 
 #clues label {
