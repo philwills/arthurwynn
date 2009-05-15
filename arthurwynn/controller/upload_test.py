@@ -35,37 +35,37 @@ class CrosswordDotInfoXmlExtractorTest(unittest.TestCase):
 """
 		self.extractor = CrosswordDotInfoXmlExtractor(self.xml)
 
-	def testShouldExtractTitleFromXml(self):
+	def test_should_extract_title_from_xml(self):
 		self.assertEqual(self.extractor.title(), 'gdn.quick')
 
-	def testShouldGetTypeFromTitle(self):
+	def test_should_get_type_from_title(self):
 		self.assertEqual(self.extractor.type(), 'quick')
 
-	def testShouldExtractCreator(self):
+	def test_should_extract_creator(self):
 		self.assertEqual(self.extractor.creator(), 'Fiore')
 
-	def testShouldExtractIdentifier(self):
+	def test_should_extract_identifier(self):
 		self.assertEqual(self.extractor.identifier(), 12110)
 
-	def testShouldExtractWidth(self):
+	def test_should_extract_width(self):
 		self.assertEqual(self.extractor.width(), 13)
 
-	def testShouldExtractHeight(self):
+	def test_should_extract_height(self):
 		self.assertEqual(self.extractor.height(), 13)
 
-	def testAllSquaresShouldBeInLettersDictionary(self):
+	def test_all_squares_should_be_in_letters_dictionary(self):
 		letters = self.extractor.letters()
 		self.assertEqual(len(letters), 13 * 13)
 
-	def testSquaresWithALetterShouldHaveLetterInDictionary(self):
+	def test_squares_with_a_letter_should_have_letter_in_dictionary(self):
 		letters = self.extractor.letters()
 		self.assertEqual(letters[1,1], 'D')
 
-	def testSquaresWithNoLetterShouldBeEmptyStringInDictionary(self):
+	def test_squares_with_no_letter_should_be_empty_string_in_dictionary(self):
 		letters = self.extractor.letters()
 		self.assertEqual(letters[1,9], '')
 
-	def testCluesShouldBeInDirectionalDictionariesIncludingLength(self):
+	def test_clues_should_be_in_directional_dictionaries_including_length(self):
 		across = self.extractor.across_clues()
 		self.assertEqual(across['1'], 'Be bold enough (4)')
 		down = self.extractor.down_clues()
