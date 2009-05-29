@@ -4,6 +4,11 @@
 		<resource-definition name="quick"
 			path="quick/{key}"
 			display-name="Quick Crosswords">
+			
+			<assets>
+				<asset type="text/css" path="css/crossword.css"/>
+				<asset type="text/javascript" path="js/moo.js"/>
+			</assets>
 		</resource-definition>
 	</resources>
 </microapp>

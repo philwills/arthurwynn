@@ -2,22 +2,16 @@
 <html>
 	<head>
 		<title>Crossword {{crossword.name}}</title>
-		<link rel="stylesheet" type="text/css" href="/css/crossword.css"/>
-		<link rel="stylesheet" type="text/css" href="/css/print.css" media="print" />
-		<style type="text/css">
-		#grid {
-			width: {{crossword.grid_width}}em; 
-			height: {{crossword.grid_height}}em; 
-		}
-		#buttons {
-			position: absolute;
-			top: {{crossword.grid_height}}em;
-			width: {{crossword.grid_width}}em; 
-		}
-		</style>
-		<script type="text/javascript" src="/js/moo.js"></script>
+		<link rel="stylesheet" type="text/css" href="/microapp/assets/css/crossword.css"/>
+		<link rel="stylesheet" type="text/css" href="/microapp/assets/css/print.css" media="print" />
+		<script type="text/javascript" src="/microapp/assets/js/moo.js"></script>
+	</head>
+	<body>
 		<script type="text/javascript">
 		window.addEvent('domready', crossword_init);
+		if (addSafeLoadEvent) {
+			addSafeLoadEvent(crossword_init);
+		}
 		window.addEvent('domready', load_from_cookie);
 
 		var active_word;
@@ -215,11 +209,9 @@
 			{% endfor %}
 		{% endfor %}
 		</script>
-	</head>
-	<body>
 	<h1>{{ crossword.type }} {{ crossword.number }} by {{ crossword.creator }}</h1>
-	<form method="POST">
-		<div id="grid">
+	<form id="crossword" method="POST">
+		<div id="grid" style="width: {{crossword.grid_width}}em; height: {{crossword.grid_height}}em;">
 		<img src="css/print-background.gif" alt="" id="print-background">
 			{% for word in crossword.words %}
 			<div id="{{ word.number }}-{{ word.direction }}" style="left: {{ word.dis_x }}em; top: {{ word.dis_y }}em;" class="{{ word.direction }}">
@@ -234,14 +226,6 @@
 					</ol>
 			</div>
 			{% endfor %}
-		</div>
-		<div id="buttons">
-			<input id="check" type="button" value="Check" />
-			<input id="cheat" type="button" value="Cheat" />
-			<input id="clear" type="button" value="Clear" />
-			<input id="check-all" type="button" value="Check All" />
-			<input id="save" type="button" value="Save" />
-			<input id="revert-to-saved" type="button" value="Revert to Saved" />
 		</div>
 	<div id="clues">
 		<div>
@@ -261,6 +245,14 @@
 			</ol>
         </div>
     </div>
+		<div id="buttons" >
+			<input id="check" type="button" value="Check" />
+			<input id="cheat" type="button" value="Cheat" />
+			<input id="clear" type="button" value="Clear" />
+			<input id="check-all" type="button" value="Check All" />
+			<input id="save" type="button" value="Save" />
+			<input id="revert-to-saved" type="button" value="Revert to Saved" />
+		</div>
 	</form>
 	</body>
 </html>
