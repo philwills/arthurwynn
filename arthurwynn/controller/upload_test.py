@@ -1,4 +1,46 @@
 import unittest
+
+from mockito import *
+
+from upload import CrosswordUploadPage
+
+from arthurwynn.crossword import Crossword
+
+class CrosswordUploadPageTest(unittest.TestCase):
+	def setUp(self):
+		self.upload_page = CrosswordUploadPage()
+
+		self.crossword_repository = Mock()
+		self.upload_page.repository = self.crossword_repository
+
+		extractor = Mock()
+		when(extractor).width().thenReturn(0)
+		when(extractor).type().thenReturn("quick")
+		when(extractor).identifier().thenReturn(42)
+		self.upload_page.extractor = extractor
+
+		request = Mock()
+		when(request).get('xml').thenReturn("")
+		self.upload_page.request = request	
+		self.upload_page.response = None	
+
+	def test_should_create_new_crossword_if_no_existing(self):
+		when(self.crossword_repository).find("quick", 42).thenReturn(None)
+		new_xword = Crossword()
+		when(self.crossword_repository).create().thenReturn(new_xword)
+		
+		self.upload_page.post()
+
+		verify(self.crossword_repository).add_or_update(new_xword)
+		
+	def test_should_update_existing_crossword_if_number_and_type_the_same(self):
+		old_xword = Crossword()
+		when(self.crossword_repository).find("quick", 42).thenReturn(old_xword)
+
+		self.upload_page.post()
+
+		verify(self.crossword_repository).add_or_update(old_xword)
+
 from upload import CrosswordDotInfoXmlExtractor
 
 class CrosswordDotInfoXmlExtractorTest(unittest.TestCase):
@@ -33,7 +75,8 @@ class CrosswordDotInfoXmlExtractorTest(unittest.TestCase):
 </clues></crossword></rectangular-puzzle>
 </crossword-compiler>
 """
-		self.extractor = CrosswordDotInfoXmlExtractor(self.xml)
+		self.extractor = CrosswordDotInfoXmlExtractor()
+		self.extractor.parse(self.xml)
 
 	def test_should_extract_title_from_xml(self):
 		self.assertEqual(self.extractor.title(), 'gdn.quick')
