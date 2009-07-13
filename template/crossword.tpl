@@ -5,11 +5,15 @@
 		<link rel="stylesheet" type="text/css" href="/microapp/assets/css/crossword.css"/>
 		<link rel="stylesheet" type="text/css" href="/microapp/assets/css/print.css" media="print" />
 		<script type="text/javascript" src="/microapp/assets/js/moo.js"></script>
+		<script type="text/javascript" src="/microapp/assets/js/jquery.js"></script>
 	</head>
 	<body>
 		<script type="text/javascript">
+		var $jQ = jQuery.noConflict();
+
 		window.addEvent('domready', crossword_init);
-		if (addSafeLoadEvent) {
+
+		if (typeof addSafeLoadEvent != 'undefined') {
 			addSafeLoadEvent(crossword_init);
 		}
 		window.addEvent('domready', load_from_cookie);

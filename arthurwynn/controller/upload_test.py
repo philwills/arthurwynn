@@ -19,9 +19,9 @@ class CrosswordUploadPageTest(unittest.TestCase):
 		when(extractor).identifier().thenReturn(42)
 		self.upload_page.extractor = extractor
 
-		request = Mock()
-		when(request).get('xml').thenReturn("")
-		self.upload_page.request = request	
+		self.request = Mock()
+		when(self.request).get('xml').thenReturn("")
+		self.upload_page.request = self.request	
 		self.upload_page.response = None	
 
 	def test_should_create_new_crossword_if_no_existing(self):
@@ -40,6 +40,16 @@ class CrosswordUploadPageTest(unittest.TestCase):
 		self.upload_page.post()
 
 		verify(self.crossword_repository).add_or_update(old_xword)
+
+	def test_should_set_xml_on_crossword(self):
+		old_xword = Crossword()
+		when(self.crossword_repository).find("quick", 42).thenReturn(old_xword)
+		xml = "<xml>honest</xml>"
+		when(self.request).get('xml').thenReturn(xml)
+
+		self.upload_page.post()
+
+		self.assertEqual(xml, old_xword.xml)
 
 from upload import CrosswordDotInfoXmlExtractor
 

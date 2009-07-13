@@ -18,6 +18,7 @@ class Crossword(db.Model):
 	down_y = db.ListProperty(int)
 	down_nums = db.ListProperty(int)
 	date = db.DateTimeProperty(auto_now_add=True)
+	xml = db.TextProperty()
 
 	def size(self, size):
 		self.num_grid_rows = size

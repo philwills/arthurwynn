@@ -14,7 +14,8 @@ class CrosswordUploadPage(ModelAndViewPage):
 		self.render('crosswordupload', {})
 	
 	def post(self):
-		self.extractor.parse(self.request.get('xml'))
+		xml = self.request.get('xml')
+		self.extractor.parse(xml)
 		type = self.extractor.type()
 		number = self.extractor.identifier()
 		crossword = self.repository.find(type, number)
@@ -27,6 +28,7 @@ class CrosswordUploadPage(ModelAndViewPage):
 		crossword.size(self.extractor.width())
 		crossword.build_solution(self.extractor.letters())
 		crossword.build_clues(self.extractor.across_clues(), self.extractor.down_clues())
+		crossword.xml = xml
 		self.repository.add_or_update(crossword)
 		if (self.response):
 			self.redirect('/microapp/resources/' + crossword.type + '/' + str(crossword.number))
