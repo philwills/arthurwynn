@@ -213,6 +213,7 @@
 		{% endfor %}
 		</script>
 	<h1>{{ crossword.title }}</h1>
+	<p>{{ crossword.date|date:"l j F Y" }}</p>
 	<form id="crossword" method="POST">
 		<div id="grid" style="width: {{crossword.grid_width}}em; height: {{crossword.grid_height}}em;">
 		<img src="css/print-background.gif" alt="" id="print-background">
