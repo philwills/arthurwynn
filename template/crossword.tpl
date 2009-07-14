@@ -212,7 +212,7 @@
 			{% endfor %}
 		{% endfor %}
 		</script>
-	<h1>{{ crossword.type }} {{ crossword.number }} by {{ crossword.creator }}</h1>
+	<h1>{{ crossword.title }}</h1>
 	<form id="crossword" method="POST">
 		<div id="grid" style="width: {{crossword.grid_width}}em; height: {{crossword.grid_height}}em;">
 		<img src="css/print-background.gif" alt="" id="print-background">

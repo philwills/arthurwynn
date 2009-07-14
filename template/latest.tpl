@@ -12,7 +12,7 @@
 	<body>
 		<h1>Latest {{ crossword.type}} Crossword</h1>
 		<ul>
-			<li><a href="{{ crossword.url }}">{{ crossword.name }}</a></li>
+			<li><a href="{{ crossword.url }}">{{ crossword.title }}</a></li>
 		</ul>
 	</body>
 </html>

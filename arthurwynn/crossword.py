@@ -69,6 +69,9 @@ class Crossword(db.Model):
 
 	def url(self):
 		return '/microapp/resources/' + self.type + '/' + str(self.number)
+
+	def title(self):
+		return self.type.capitalize() + ' Crossword No. ' + str(self.number) + ' set by ' + self.creator
 	
 	def build_solution(self, letters):
 		in_word = False
