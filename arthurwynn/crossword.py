@@ -71,7 +71,13 @@ class Crossword(db.Model):
 		return '/microapp/resources/' + self.type + '/' + str(self.number)
 
 	def title(self):
-		return self.type.capitalize() + ' Crossword No. ' + str(self.number) + ' set by ' + self.creator
+		if self.type is None:
+			return self.name
+
+		title = self.type.capitalize() + ' Crossword No. ' + str(self.number)
+		if self.creator is not None:
+			title += ' set by ' + self.creator
+		return title
 	
 	def build_solution(self, letters):
 		in_word = False

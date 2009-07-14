@@ -53,6 +53,16 @@ class CrosswordTest(unittest.TestCase):
 		crossword.creator = 'Philus Willus'
 		self.assertEqual(crossword.title(), 'Cryptic Crossword No. 42 set by Philus Willus')
 		
+	def test_should_provide_helpful_title_when_no_creator_set(self):
+		crossword = Crossword()
+		crossword.type = 'cryptic'
+		crossword.number = 42
+		self.assertEqual(crossword.title(), 'Cryptic Crossword No. 42')
+
+	def test_should_just_use_name_for_title_if_no_type(self):
+		crossword = Crossword()
+		crossword.name = 'Geoffrey'
+		self.assertEqual(crossword.title(), 'Geoffrey')
 				
 class StockCrossword(Crossword):
 	def __init__(self):
