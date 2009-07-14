@@ -66,6 +66,9 @@ class Crossword(db.Model):
 			if coordinate in down_letters:
 				intersections[across_letters[coordinate]] = down_letters[coordinate]
 		return intersections
+
+	def url(self):
+		return '/microapp/resources/' + self.type + '/' + str(self.number)
 	
 	def build_solution(self, letters):
 		in_word = False

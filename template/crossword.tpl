@@ -12,8 +12,7 @@
 		var $jQ = jQuery.noConflict();
 
 		window.addEvent('domready', crossword_init);
-
-		if (typeof addSafeLoadEvent != 'undefined') {
+		if (typeof(addSafeLoadEvent) !== 'undefined') {
 			addSafeLoadEvent(crossword_init);
 		}
 		window.addEvent('domready', load_from_cookie);

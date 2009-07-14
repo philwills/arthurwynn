@@ -39,6 +39,12 @@ class CrosswordTest(unittest.TestCase):
 		self.assertEquals(crossword.across_solutions[0], 'AB')
 		self.assertEquals(crossword.across_solutions[2], 'EFG')
 		self.assertEquals(crossword.down_solutions[0], 'BCF')
+
+	def test_should_provide_link_to_full_version(self):
+		crossword = StockCrossword()
+		crossword.type = 'quick'
+		crossword.number = 42
+		self.assertEqual(crossword.url(), '/microapp/resources/quick/42')
 				
 class StockCrossword(Crossword):
 	def __init__(self):

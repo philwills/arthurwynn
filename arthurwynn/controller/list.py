@@ -1,6 +1,15 @@
 from arthurwynn.controller.modelview import ModelAndViewPage
 
 from arthurwynn.crossword import Crossword
+from arthurwynn.crossword_repository import CrosswordRepository
+
+class MicroappLatestPage(ModelAndViewPage):
+	def get(self, type):
+		repository = CrosswordRepository()
+		model = {
+			'crossword': repository.latest(type)
+		}
+		self.render('latest', model)
 
 class CrosswordListPage(ModelAndViewPage):
 	def get(self):
