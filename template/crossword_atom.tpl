@@ -6,7 +6,7 @@
 {% for crossword in crosswords %}
 <entry>
 	<id>http://arthur-wynn.appspot.com/crossword?key={{ crossword.key }}</id>
-	<title>{{ crossword.name|escape }}</title>
+	<title>{{ crossword.title|escape }}</title>
 	<updated>{{ crossword.date|date:"r" }}</updated>
 	<link rel="alternate" href="http://arthur-wynn.appspot.com/crossword?key={{ crossword.key }}"/>
 </entry>

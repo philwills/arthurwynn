@@ -13,7 +13,7 @@
 		<h1>Latest Crosswords</h1>
 		<ol>
 		{% for crossword in crosswords %}
-			<li><a href="crossword?key={{ crossword.key }}">{{ crossword.name }}</a></li>
+			<li><a href="crossword?key={{ crossword.key }}">{{ crossword.title }}</a></li>
 		{% endfor %}
 		</ol>
 		<a href="create">Create a new crossword</a>
