@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<microapp provider="arthurwynn">
+<microapp provider="arthurwynn" interface-version="1" name="crossword" version="1.0">
 	<resources>
 		<resource-definition name="quick"
-			path="quick/{key}"
+			cms-path-pattern="quick/{key:number}"
+			path="quick/{key:number}"
 			display-name="Quick Crosswords">
 			
 			<assets>
@@ -11,4 +12,10 @@
 			</assets>
 		</resource-definition>
 	</resources>
+	<keys>
+		<key-definition display-name="Crossword Number" name="number" />
+	</keys>
+	<components>
+		<component-definition display-name="Latest Crosswords" name="latest-crosswords" path="latest" widths="300,380" />
+	</components>
 </microapp>
