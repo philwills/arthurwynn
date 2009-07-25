@@ -28,7 +28,7 @@ class CrosswordUploadPage(ModelAndViewPage):
 		crossword.size(self.extractor.width())
 		crossword.build_solution(self.extractor.letters())
 		crossword.build_clues(self.extractor.across_clues(), self.extractor.down_clues())
-		crossword.xml = xml
+		crossword.xml = xml.decode('utf-8')
 		self.repository.add_or_update(crossword)
 		if (self.response):
 			self.redirect('/microapp/resources/' + crossword.type + '/' + str(crossword.number))
