@@ -52,17 +52,25 @@ class Crossword(db.Model):
 		words.extend(self.down_words())
 		return words
 
-	def intersections(self):
+	def across_letters(self):
 		across_letters = {}
 		for across_word in self.across_words():
 			for i in range(len(across_word.solution)):
 				across_letters[str(across_word.x + i) + '-' + str(across_word.y)] = str(across_word.number) + '-across-' + str(i + 1)
+		return across_letters
+		
+	def down_letters(self):
 		down_letters = {}
 		for down_word in self.down_words():
 			for i in range(len(down_word.solution)):
 				down_letters[str(down_word.x) + '-' + str(down_word.y + i)] = str(down_word.number) + '-down-' + str(i + 1)
+		return down_letters
+
+	def intersections(self):
 		intersections = {}
-		for coordinate in across_letters.keys():
+		across_letters = self.across_letters()
+		down_letters = self.down_letters()
+		for coordinate in across_letters:
 			if coordinate in down_letters:
 				intersections[across_letters[coordinate]] = down_letters[coordinate]
 		return intersections
@@ -148,6 +156,14 @@ class Crossword(db.Model):
 					self.down_clues.append('')
 				if (col_num - 1, row_num - 1) in across_coords or (col_num - 1, row_num - 1) in down_coords:
 					number = number + 1
+				
+	def	blanks(self):
+		blanks = {}
+		for row_num in self.grid_rows():
+			blanks[row_num] = []
+			for col_num in self.grid_cols():
+				blanks[row_num].append(col_num)
+		return blanks
 				
 class Word:
 	def dis_x(self):

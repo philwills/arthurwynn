@@ -63,6 +63,12 @@ class CrosswordTest(unittest.TestCase):
 		crossword = Crossword()
 		crossword.name = 'Geoffrey'
 		self.assertEqual(crossword.title(), 'Geoffrey')
+
+	def test_should_provide_blanks(self):
+		crossword = StockCrossword()
+		
+		self.assertEqual(crossword.blanks()[1], ['G'])
+		
 				
 class StockCrossword(Crossword):
 	def __init__(self):
