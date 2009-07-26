@@ -25,3 +25,8 @@ class MicroappCrosswordPage(ModelAndViewPage):
 
 	def get_view_name(self):
 		return 'crossword'
+
+class BlindCrosswordPage(MicroappCrosswordPage):
+	def get_view_name(self):
+		return 'blind'
+

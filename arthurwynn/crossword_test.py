@@ -67,7 +67,7 @@ class CrosswordTest(unittest.TestCase):
 	def test_should_provide_blanks(self):
 		crossword = StockCrossword()
 		
-		self.assertEqual(crossword.blanks()[1], ['G'])
+		self.assertEqual(crossword.blanks()[1], [7])
 		
 				
 class StockCrossword(Crossword):

@@ -156,13 +156,18 @@ class Crossword(db.Model):
 					self.down_clues.append('')
 				if (col_num - 1, row_num - 1) in across_coords or (col_num - 1, row_num - 1) in down_coords:
 					number = number + 1
-				
+	
 	def	blanks(self):
+		across_letters = self.across_letters()		
+		down_letters = self.down_letters()		
+
 		blanks = {}
 		for row_num in self.grid_rows():
 			blanks[row_num] = []
 			for col_num in self.grid_cols():
-				blanks[row_num].append(col_num)
+				if str(col_num - 1) + '-' + str(row_num - 1) not in across_letters:
+					if str(col_num - 1) + '-' + str(row_num - 1) not in down_letters:
+						blanks[row_num].append(col_num)
 		return blanks
 				
 class Word:
