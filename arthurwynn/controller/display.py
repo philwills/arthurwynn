@@ -30,3 +30,6 @@ class BlindCrosswordPage(MicroappCrosswordPage):
 	def get_view_name(self):
 		return 'blind'
 
+class AnagramPage(ModelAndViewPage):
+	def get(self):
+		self.render('anagram', {})

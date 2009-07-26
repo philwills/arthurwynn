@@ -1,7 +1,7 @@
 from arthurwynn.controller.modelview import ModelAndViewPage
 from arthurwynn.controller.upload import CrosswordUploadPage
 from arthurwynn.controller.create import CrosswordCreationPage, CrosswordGridPage, CrosswordCluePage
-from arthurwynn.controller.display import CrosswordPage, MicroappCrosswordPage, BlindCrosswordPage
+from arthurwynn.controller.display import CrosswordPage, MicroappCrosswordPage, BlindCrosswordPage, AnagramPage
 from arthurwynn.controller.list import CrosswordListPage, CrosswordAtomPage, MicroappLatestPage
 
 from google.appengine.ext import webapp
@@ -18,6 +18,7 @@ application = webapp.WSGIApplication([
 									(r'/microapp/component/(.*)/latest', MicroappLatestPage),
 									(r'/microapp/resources/(.*)/(.*)/blind', BlindCrosswordPage),
 									(r'/microapp/resources/(.*)/(.*)', MicroappCrosswordPage),
+									('/microapp/resources/anagram', AnagramPage),
                                     ('/create', CrosswordCreationPage),
                                     ('/create/grid', CrosswordGridPage),
                                     ('/create/clues', CrosswordCluePage),
