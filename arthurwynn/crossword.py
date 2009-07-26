@@ -105,8 +105,8 @@ class Crossword(db.Model):
 						current_word = ""
 				elif len(letter) > 0 and not next_letter_is_empty:
 					in_word = True
-					self.across_x.append(col_num - 1)
-					self.across_y.append(row_num - 1)
+					self.across_x.append(col_num)
+					self.across_y.append(row_num)
 					current_word = current_word + letter
 		in_word = False
 		self.down_solutions = []
@@ -125,8 +125,8 @@ class Crossword(db.Model):
 						current_word = ""
 				elif len(letter) > 0 and not next_letter_is_empty:
 					in_word = True
-					self.down_x.append(col_num - 1)
-					self.down_y.append(row_num - 1)
+					self.down_x.append(col_num)
+					self.down_y.append(row_num)
 					current_word = current_word + letter
 		self.calculate_numbers()
 
@@ -148,13 +148,13 @@ class Crossword(db.Model):
 		self.down_nums = []
 		for row_num in self.grid_rows():
 			for col_num in self.grid_cols():
-				if (col_num - 1, row_num - 1) in across_coords:
+				if (col_num, row_num) in across_coords:
 					self.across_nums.append(number)
 					self.across_clues.append('')
-				if (col_num - 1, row_num - 1) in down_coords:
+				if (col_num, row_num) in down_coords:
 					self.down_nums.append(number)
 					self.down_clues.append('')
-				if (col_num - 1, row_num - 1) in across_coords or (col_num - 1, row_num - 1) in down_coords:
+				if (col_num, row_num) in across_coords or (col_num, row_num) in down_coords:
 					number = number + 1
 	
 	def	blanks(self):
@@ -165,17 +165,17 @@ class Crossword(db.Model):
 		for row_num in self.grid_rows():
 			blanks[row_num] = []
 			for col_num in self.grid_cols():
-				if str(col_num - 1) + '-' + str(row_num - 1) not in across_letters:
-					if str(col_num - 1) + '-' + str(row_num - 1) not in down_letters:
+				if str(col_num) + '-' + str(row_num) not in across_letters:
+					if str(col_num) + '-' + str(row_num) not in down_letters:
 						blanks[row_num].append(col_num)
 		return blanks
 				
 class Word:
 	def dis_x(self):
-		return self.x * 2
+		return (self.x - 1) * 2
 
 	def dis_y(self):
-		return self.y * 2
+		return (self.y - 1) * 2
 
 	def __init__(self, num, clue, solution, x, y, direction):
 		self.number = num

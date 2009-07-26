@@ -78,13 +78,13 @@ class StockCrossword(Crossword):
 		self.across_nums = [1, 4, 8, 9, 10, 11, 12, 17, 19, 21, 22, 23,24,]
 		self.across_clues = ["Really not very clean", "SWITCH", "LIBEL", "HUSBAND", "SURGEON", "FRAIL", "AMARYLLIS", "DUMPY", "OBLOQUY", "GIMMICK", "MAORI", "OYSTER", "STEADY",]
 		self.across_solutions = ["FILTHY", "SWITCH", "LIBEL", "HUSBAND", "SURGEON", "FRAIL", "AMARYLLIS", "DUMPY", "OBLOQUY", "GIMMICK", "MAORI", "OYSTER", "STEADY",]
-		self.across_x = [0, 7, 0, 6, 0, 8, 2, 0, 6, 0, 8, 0, 7,]
-		self.across_y = [0, 0, 2, 2, 4, 4, 6, 8, 8, 10, 10, 12, 12,]
+		self.across_x = [1, 8, 1, 7, 1, 9, 3, 1, 7, 1, 9, 1, 8,]
+		self.across_y = [1, 1, 3, 3, 5, 5, 7, 9, 9, 11, 11, 13, 13,]
 		self.down_nums = [1, 2, 3, 5, 6, 7, 9, 13, 14, 15, 16, 18, 20,]
 		self.down_clues = ["Unsophisticated", "LIBERIA", "HALVE", "WISTFUL", "TRALA", "HUDDLE", "HONKYTONK", "ANYTIME", "SEQUOIA", "ADAGIO", "TYPIFY", "MUMPS", "LIMIT",]
 		self.down_solutions = ["FOLKSY", "LIBERIA", "HALVE", "WISTFUL", "TRALA", "HUDDLE", "HONKYTONK", "ANYTIME", "SEQUOIA", "ADAGIO", "TYPIFY", "MUMPS", "LIMIT",]
-		self.down_x = [0, 2, 4, 8, 10, 12, 6, 4, 10, 0, 12, 2, 8,]
-		self.down_y = [0, 0, 0, 0, 0, 0, 2, 6, 6, 7, 7, 8, 8,]
+		self.down_x = [1, 3, 5, 9, 11, 13, 7, 5, 11, 1, 13, 3, 9,]
+		self.down_y = [1, 1, 1, 1, 1, 1, 3, 7, 7, 8, 8, 9, 9,]
 
 if __name__ == '__main__':
 	unittest.main()
