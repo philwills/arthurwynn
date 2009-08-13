@@ -32,4 +32,4 @@ class BlindCrosswordPage(MicroappCrosswordPage):
 
 class AnagramPage(ModelAndViewPage):
 	def get(self):
-		self.render('anagram', {})
+		self.render('anagram', {'letters': range(int(self.request.get('num_letters')))})

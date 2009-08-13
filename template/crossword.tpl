@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<script type="text/javascript">
-		var $jQ = jQuery.noConflict();
+		var jQ = jQuery.noConflict();
 
 		window.addEvent('domready', crossword_init);
 		if (typeof(addSafeLoadEvent) !== 'undefined') {
@@ -155,6 +155,15 @@
 			}
 		}
 
+		window.addEvent('domready', bind_activate);
+		function bind_activate() {
+			$('anagrams').addEvent('click', function(e) {
+				var num_letters = active_word.getElements('input').length;
+				var size = num_letters * 35;
+				window.open('http://localhost:8080/microapp/resources/anagram?num_letters=' + num_letters, 'anagrams', 'toolbar=false,menubar=false,status=false,height=' + size + ',width=' + size);
+			});
+		}
+
 		function focusOnNextInput(element) {
 			var nextClue = element.getParent().getNext();
 			if(nextClue) {
@@ -249,14 +258,15 @@
 			</ol>
         </div>
     </div>
-		<div id="buttons" >
-			<input id="check" type="button" value="Check" />
-			<input id="cheat" type="button" value="Cheat" />
-			<input id="clear" type="button" value="Clear" />
-			<input id="check-all" type="button" value="Check All" />
-			<input id="save" type="button" value="Save" />
-			<input id="revert-to-saved" type="button" value="Revert to Saved" />
-		</div>
+	<div id="buttons" >
+		<input id="check" type="button" value="Check" />
+		<input id="cheat" type="button" value="Cheat" />
+		<input id="clear" type="button" value="Clear" />
+		<input id="check-all" type="button" value="Check All" />
+		<input id="save" type="button" value="Save" />
+		<input id="revert-to-saved" type="button" value="Revert to Saved" />
+		<input id="anagrams" type="button" value="Anagrams" />
+	</div>
 	</form>
 	</body>
 </html>
