@@ -166,8 +166,9 @@
 						existing_letters += '_';
 					}
 				});
-				var size = existing_letters.length * 35;
-				window.open('http://localhost:8080/microapp/resources/anagram?existing_letters=' + existing_letters, 'anagrams', 'toolbar=false,menubar=false,status=false,height=' + size + ',width=' + size);
+				var width = existing_letters.length * 35;
+				var height = width + 35;
+				window.open('http://localhost:8080/microapp/resources/anagram?existing_letters=' + existing_letters, 'anagrams', 'toolbar=false,menubar=false,status=false,height=' + height + ',width=' + width);
 			});
 		}
 
@@ -214,6 +215,12 @@
 			var word = letter.getParent('div');
 			word.removeClass('active');
 			$(word.id + '-clue').removeClass('active');
+		}
+
+		function insert_from_anagram(letter_array) {
+			active_word.getElements('input').each(function(letter, index) {
+				letter.value = letter_array[index];
+			});
 		}
 
 		var intersections = new Array();

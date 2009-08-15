@@ -4,10 +4,15 @@
 <script type="text/javascript" src="/microapp/assets/js/moo.js"></script>
 <script type="text/javascript">
 window.addEvent('domready', activate_shuffle);
+window.addEvent('domready', activate_insert);
 window.addEvent('domready', setup_letters);
 
 function activate_shuffle() {
 	$('shuffle').addEvent('click', shuffle_letters);
+}
+
+function activate_insert() {
+	$('insert').addEvent('click', insert_to_opener);
 }
 
 function setup_letters() {
@@ -29,6 +34,15 @@ function shuffle_letters() {
 	});
 	arrange_letters();
 	return false;
+}
+
+function insert_to_opener() {
+	var letters = [];
+	$('anagrams').getElements('input').each(function(input) {
+		letters[letters.length] = input.value;
+	});
+	window.opener.insert_from_anagram(letters);
+	window.close();
 }
 
 function shuffle ( arr ) {
@@ -58,8 +72,8 @@ function arrange_letters() {
 		});
 		positioned_letter.setStyles({
 			'position': 'absolute',
-			'top': radius * Math.sin(2 * Math.PI * index / unfixed_letters.length - Math.PI / 2) + radius + 10,
-			'left': radius * Math.cos(2 * Math.PI * index / unfixed_letters.length - Math.PI / 2) + radius + 10,
+			'top': radius * Math.sin(2 * Math.PI * index / unfixed_letters.length - Math.PI / 2) + radius + 15,
+			'left': radius * Math.cos(2 * Math.PI * index / unfixed_letters.length - Math.PI / 2) + radius + 15,
 		});
 		positioned_letter.inject($('letters'));
 	});
@@ -75,7 +89,17 @@ function arrange_letters() {
 		bottom: 1em;
 	}
 	#anagrams input {
+		border: 1px solid;
 		font-variant: small-caps;
+		display: block;
+		float: left;
+	}
+	#anagrams input.fixed {
+		border: 2px solid;
+	}
+	#buttons {
+		display: block;
+		clear: left;
 	}
 </style>
 </head>
@@ -89,7 +113,10 @@ function arrange_letters() {
 		<input type="text" maxlength="1" size="1" value="{{ letter }}" class="fixed">
 	{% endifequal %}
 {% endfor %}
-<button id="shuffle">Shuffle</button>
+<div id="buttons">
+	<button id="shuffle">Shuffle</button>
+	<button id="insert">Insert</button>
+</div>
 </form>
 </body>
 </html>
