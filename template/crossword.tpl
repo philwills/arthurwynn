@@ -158,9 +158,16 @@
 		window.addEvent('domready', bind_activate);
 		function bind_activate() {
 			$('anagrams').addEvent('click', function(e) {
-				var num_letters = active_word.getElements('input').length;
-				var size = num_letters * 35;
-				window.open('http://localhost:8080/microapp/resources/anagram?num_letters=' + num_letters, 'anagrams', 'toolbar=false,menubar=false,status=false,height=' + size + ',width=' + size);
+				var existing_letters = "";
+				active_word.getElements('input').each(function(input) {
+					if (input.value) {
+						existing_letters += input.value;
+					} else {
+						existing_letters += '_';
+					}
+				});
+				var size = existing_letters.length * 35;
+				window.open('http://localhost:8080/microapp/resources/anagram?existing_letters=' + existing_letters, 'anagrams', 'toolbar=false,menubar=false,status=false,height=' + size + ',width=' + size);
 			});
 		}
 

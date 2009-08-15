@@ -83,7 +83,11 @@ function arrange_letters() {
 <div id="letters"></div>
 <form id="anagrams">
 {% for letter in letters %}
-<input type="text" maxlength="1" size="1">
+	{% ifequal letter '_' %}
+		<input type="text" maxlength="1" size="1">
+	{% else %}
+		<input type="text" maxlength="1" size="1" value="{{ letter }}" class="fixed">
+	{% endifequal %}
 {% endfor %}
 <button id="shuffle">Shuffle</button>
 </form>
