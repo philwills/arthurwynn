@@ -104,21 +104,11 @@
 			});
 
 			$('check').addEvent('click', function(e) {
-				active_word.getElements('input').each(function(square) {
-					if (square.value.toLowerCase() != solutions[square.id].toLowerCase()) {
-						square.value = '';
-						copyChangeToIntersectingLetter(square);
-					}
-				});
+				check(active_word.getElements('input'));
 			});
 
 			$('check-all').addEvent('click', function(e) {
-				inputs.each(function(square) {
-					if (square.value.toLowerCase() != solutions[square.id].toLowerCase()) {
-						square.value = '';
-						copyChangeToIntersectingLetter(square);
-					}
-				});
+				check(inputs);
 			});
 
 			$('cheat').addEvent('click', function(e) {
@@ -129,10 +119,7 @@
 			});
 
 			$('clear').addEvent('click', function(e) {
-				active_word.getElements('input').each(function(square) {
-					square.value = '';
-					copyChangeToIntersectingLetter(square);
-				});
+				clear(active_word.getElements('input'));
 			});
 
 			$('save').addEvent('click', function(e) {
@@ -224,6 +211,21 @@
 			});
 		}
 
+		function clear(input_array) {
+			input_array.each(function(square) {
+				square.value = '';
+				copyChangeToIntersectingLetter(square);
+			});
+		}
+		
+		function check(input_array) {
+			input_array.each(function(square) {
+				if (square.value.toLowerCase() != solutions[square.id].toLowerCase()) {
+					square.value = '';
+					copyChangeToIntersectingLetter(square);
+				}
+			});
+		}
 		var intersections = new Array();
 		{% for intersection in crossword.intersections.items %}
 			intersections["{{intersection.0}}"] = "{{intersection.1}}";
