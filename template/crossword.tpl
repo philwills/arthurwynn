@@ -220,6 +220,7 @@
 		function insert_from_anagram(letter_array) {
 			active_word.getElements('input').each(function(letter, index) {
 				letter.value = letter_array[index];
+				copyChangeToIntersectingLetter(letter);
 			});
 		}
 
