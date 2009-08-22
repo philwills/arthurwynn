@@ -82,7 +82,19 @@ class CrosswordDotInfoXmlExtractor():
 		for clues in self.puzzle.findall('./' + self.namespace + 'crossword/' + self.namespace + 'clues'):
 			if (clues.find('./' + self.namespace + 'title/' + self.namespace +'b').text == 'Across'):
 				for clue in clues.findall('./' + self.namespace + 'clue'):
-					self.across_clue_dict[clue.get('number')] = clue.text + ' (' + clue.get('format') + ')'
+					self.add_clue(self.across_clue_dict, clue)
 			else:
 				for clue in clues.findall('./' + self.namespace + 'clue'):
-					self.down_clue_dict[clue.get('number')] = clue.text + ' (' + clue.get('format') + ')'
+					self.add_clue(self.down_clue_dict, clue)
+
+	def add_clue(self, clue_dict, clue):
+		clue_numbers = clue.get('number').split(',')
+		clue_dict[clue_numbers[0]] = self.get_clue_text(clue)
+		if (len(clue_numbers) > 1 and clue_numbers[1] not in clue_dict and not clue_numbers[1].endswith('down')):
+			clue_dict[clue_numbers[1]] = 'See ' + clue_numbers[0]
+
+	def get_clue_text(self, clue):
+		if (clue.get('format')):
+			return clue.text + ' (' + clue.get('format') + ')'
+		else:
+			return clue.text
