@@ -74,19 +74,19 @@ class GuCrosswordXmlExtractor():
 		return self.root.find('./header/title').text
 
 	def type(self):
-		pass
+		return self.root.attrib['type']
 
 	def creator(self):
-		pass
+		return self.root.find('./header/author').text
 
 	def identifier(self):
-		pass
+		return int(self.root.attrib['serial'])
 
 	def width(self):
-		pass
+		return int(self.root.find('./header/grid').attrib['cols'])
 		
 	def height(self):
-		pass
+		return int(self.root.find('./header/grid').attrib['rows'])
 
 	def letters(self):
 		pass

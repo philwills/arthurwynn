@@ -86,5 +86,25 @@ class GuCrosswordXmlExtractorTest(unittest.TestCase):
 		self.extractor.parse(self.xml)
 		self.assertEqual(self.extractor.title(), 'Cryptic Crossword No. 24656')
 
+	def test_should_get_type_from_title(self):
+		self.extractor.parse(self.xml)
+		self.assertEqual(self.extractor.type(), 'Cryptic')
+
+	def test_should_extract_creator(self):
+		self.extractor.parse(self.xml)
+		self.assertEqual(self.extractor.creator(), 'Brendan')
+
+	def test_should_extract_identifier(self):
+		self.extractor.parse(self.xml)
+		self.assertEqual(self.extractor.identifier(), 24656)
+
+	def test_should_extract_width(self):
+		self.extractor.parse(self.xml)
+		self.assertEqual(self.extractor.width(), 15)
+
+	def test_should_extract_height(self):
+		self.extractor.parse(self.xml)
+		self.assertEqual(self.extractor.height(), 15)
+
 if __name__ == '__main__':
 	unittest.main()
