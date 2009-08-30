@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<crossword type="Cryptic" serial="24656" date="25-03-2009" dayofweek="3">
+	<header>
+		<grid cols="15" rows="15"/>
+		<title>Cryptic Crossword No. 24656</title>
+		<description/>
+		<copyright>Guardian</copyright>
+		<author>Brendan</author>
+	</header>
+	<body>
+		<word number="8" direction="across" x="0" y="1">
+			<clue>Players collectively demolish extra food(4,4)</clue>
+			<solution>SIDEDISH</solution>
+		</word>
+		<word number="9" direction="across" x="9" y="1">
+			<clue>Old king's literary pseudonym(6)</clue>
+			<solution>OHENRY</solution>
+		</word>
+		<word number="10" direction="across" x="0" y="3">
+			<clue>Name of man backing another in Spanish city(4)</clue>
+			<solution>LEON</solution>
+		</word>
+		<word number="11" direction="across" x="5" y="3">
+			<clue>Solitary types disoriented in chain store(10)</clue>
+			<solution>ANCHORITES</solution>
+		</word>
+		<word number="12" direction="across" x="0" y="5">
+			<clue>Mother has to purchase, we hear, dear kind of fish(6,4)</clue>
+			<solution>MUMBAI</solution>
+		</word>
+		<word number="14" direction="across" x="7" y="5">
+			<clue>Fit for match between the Spanish and the French, one great back(8)</clue>
+			<solution>ELIGIBLE</solution>
+		</word>
+		<word number="15" direction="across" x="0" y="7">
+			<clue>No real alterations seen in 2, 7, 9, 10, 12, 13, 19, 22 across and 22 down(7,7)</clue>
+			<solution>NOMINAL</solution>
+		</word>
+		<word number="17" direction="across" x="8" y="7">
+			<clue>See 15</clue>
+			<solution>CHANGES</solution>
+		</word>
+		<word number="20" direction="across" x="0" y="9">
+			<clue>It's bad, tucking into something to eat - very bad(8)</clue>
+			<solution>DEVILISH</solution>
+		</word>
+		<word number="22" direction="across" x="9" y="9">
+			<clue>Name Dianne differently(6)</clue>
+			<solution>NADINE</solution>
+		</word>
+		<word number="23" direction="across" x="0" y="11">
+			<clue>Scary thing, Frenchman turning on fellow conservative(10)</clue>
+			<solution>FRIGHTENER</solution>
+		</word>
+		<word number="24" direction="across" x="11" y="11">
+			<clue>Money deposited in bank safe, but only to begin with(4)</clue>
+			<solution>DIBS</solution>
+		</word>
+		<word number="25" direction="across" x="0" y="13">
+			<clue>Article by informal relative becoming academic text(6)</clue>
+			<solution>THESIS</solution>
+		</word>
+		<word number="26" direction="across" x="7" y="13">
+			<clue>Wrongly removed tube buried in one part of garden(8)</clue>
+			<solution>ABDUCTED</solution>
+		</word>
+		<word number="1" direction="down" x="1" y="0">
+			<clue>Direction to slow down tune trio ruined(8)</clue>
+			<solution>RITENUTO</solution>
+		</word>
+		<word number="2" direction="down" x="3" y="0">
+			<clue>New name given Jane, after moving east(4)</clue>
+			<solution>JEAN</solution>
+		</word>
+		<word number="3" direction="down" x="5" y="0">
+			<clue>One rule I had set up for Indian festival(6)</clue>
+			<solution>DIWALI</solution>
+		</word>
+		<word number="4" direction="down" x="7" y="0">
+			<clue>Fearful hen I can, oddly, put in kind of curry(7,7)</clue>
+			<solution>CHICKEN</solution>
+		</word>
+		<word number="5" direction="down" x="9" y="0">
+			<clue>Stone block with solid middle installed in part of year(8)</clue>
+			<solution>MONOLITH</solution>
+		</word>
+		<word number="6" direction="down" x="11" y="0">
+			<clue>Dainty little daughter covering one leg, as requested(10)</clue>
+			<solution>PETITIONED</solution>
+		</word>
+		<word number="7" direction="down" x="13" y="0">
+			<clue>What Blair became before spring(6)</clue>
+			<solution>ORWELL</solution>
+		</word>
+		<word number="13" direction="down" x="3" y="5">
+			<clue>Asian citizen I see being mistreated around judge(10)</clue>
+			<solution>BEIJINGESE</solution>
+		</word>
+		<word number="16" direction="down" x="5" y="7">
+			<clue>Bill that is, over time, providing a crucial check(4,4)</clue>
+			<solution>ACIDTEST</solution>
+		</word>
+		<word number="18" direction="down" x="13" y="7">
+			<clue>Maid of Orleans uplifted, guided and elevated(8)</clue>
+			<solution>ENNOBLED</solution>
+		</word>
+		<word number="19" direction="down" x="7" y="8">
+			<clue>See 4</clue>
+			<solution>CHENNAI</solution>
+		</word>
+		<word number="21" direction="down" x="1" y="9">
+			<clue>They are mostly awfully coarse(6)</clue>
+			<solution>EARTHY</solution>
+		</word>
+		<word number="22" direction="down" x="9" y="9">
+			<clue>Name taken by poet, strangely unread(6)</clue>
+			<solution>NERUDA</solution>
+		</word>
+		<word number="24" direction="down" x="11" y="11">
+			<clue>See 12</clue>
+			<solution>DUCK</solution>
+		</word>
+		
+	</body>
+</crossword>

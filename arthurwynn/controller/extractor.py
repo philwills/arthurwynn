@@ -11,10 +11,10 @@ class CrosswordDotInfoXmlExtractor():
 		self.extract_clues()
 
 	def title(self):
-		return self.puzzle.find('./' + self.namespace + 'metadata/' + self.namespace + 'title').text
+		return self.type().capitalize() + ' Crossword No. ' + str(self.identifier())
 
 	def type(self):
-		titleText = self.title()
+		titleText = self.puzzle.find('./' + self.namespace + 'metadata/' + self.namespace + 'title').text
 		if titleText[0:4] == 'gdn.':
 			return titleText[4:]
 
@@ -65,3 +65,28 @@ class CrosswordDotInfoXmlExtractor():
 			return clue.text + ' (' + clue.get('format') + ')'
 		else:
 			return clue.text
+
+class GuCrosswordXmlExtractor():
+	def parse(self, xml_string):
+		self.root = fromstring(xml_string)
+
+	def title(self):
+		return self.root.find('./header/title').text
+
+	def type(self):
+		pass
+
+	def creator(self):
+		pass
+
+	def identifier(self):
+		pass
+
+	def width(self):
+		pass
+		
+	def height(self):
+		pass
+
+	def letters(self):
+		pass

@@ -2,7 +2,7 @@ import unittest
 
 import os
 
-from extractor import CrosswordDotInfoXmlExtractor
+from extractor import *
 
 class CrosswordDotInfoXmlExtractorTest(unittest.TestCase):
 	def setUp(self):
@@ -10,9 +10,9 @@ class CrosswordDotInfoXmlExtractorTest(unittest.TestCase):
 		self.cryptic_xml = open(os.path.join(os.path.dirname(__file__),'24656.xml.16'), 'r').read()
 		self.extractor = CrosswordDotInfoXmlExtractor()
 
-	def test_should_extract_title_from_xml(self):
+	def test_should_extract_title_based_on_type_and_identifier(self):
 		self.extractor.parse(self.xml)
-		self.assertEqual(self.extractor.title(), 'gdn.quick')
+		self.assertEqual(self.extractor.title(), 'Quick Crossword No. 12110')
 
 	def test_should_get_type_from_title(self):
 		self.extractor.parse(self.xml)
@@ -76,6 +76,15 @@ class CrosswordDotInfoXmlExtractorTest(unittest.TestCase):
 		self.extractor.parse(self.cryptic_xml)
 		across = self.extractor.across_clues()
 		self.assertFalse('24down' in across)
+
+class GuCrosswordXmlExtractorTest(unittest.TestCase):
+	def setUp(self):
+		self.xml = open(os.path.join(os.path.dirname(__file__),'1,,25032009,00.xml'), 'r').read()
+		self.extractor = GuCrosswordXmlExtractor()
+
+	def test_should_extract_title_based_on_xml(self):
+		self.extractor.parse(self.xml)
+		self.assertEqual(self.extractor.title(), 'Cryptic Crossword No. 24656')
 
 if __name__ == '__main__':
 	unittest.main()
