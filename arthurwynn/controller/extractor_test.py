@@ -42,12 +42,12 @@ class CrosswordDotInfoXmlExtractorTest(unittest.TestCase):
 	def test_squares_with_a_letter_should_have_letter_in_dictionary(self):
 		self.extractor.parse(self.xml)
 		letters = self.extractor.letters()
-		self.assertEqual(letters[1,1], 'D')
+		self.assertEqual(letters[0,0], 'D')
 
 	def test_squares_with_no_letter_should_be_empty_string_in_dictionary(self):
 		self.extractor.parse(self.xml)
 		letters = self.extractor.letters()
-		self.assertEqual(letters[1,9], '')
+		self.assertEqual(letters[0,8], '')
 
 	def test_clues_should_be_in_directional_dictionaries_including_length(self):
 		self.extractor.parse(self.xml)
@@ -105,6 +105,29 @@ class GuCrosswordXmlExtractorTest(unittest.TestCase):
 	def test_should_extract_height(self):
 		self.extractor.parse(self.xml)
 		self.assertEqual(self.extractor.height(), 15)
+
+	def test_all_across_numbers_extracted(self):
+		self.extractor.parse(self.xml)
+		across_nums = self.extractor.across_nums()
+		self.assertEqual(across_nums, [8,9,10,11,12,14,15,17,20,22,23,24,25,26])
+
+	def test_all_down_numbers_extracted(self):
+		self.extractor.parse(self.xml)
+		down_nums = self.extractor.down_nums()
+		self.assertEqual(down_nums, [1,2,3,4,5,6,7,13,16,18,19,21,22,24])
+
+	def test_coordinates_extracted(self):
+		self.extractor.parse(self.xml)
+		self.assertEqual(self.extractor.across_x(), [0,9,0,5,0,7,0,8,0,9,0,11,0,7])
+		self.assertEqual(self.extractor.down_y(), [0,0,0,0,0,0,0,5,7,7,8,9,9,11])
+
+	def test_clue_extracted(self):
+		self.extractor.parse(self.xml)
+		self.assertEqual(self.extractor.across_clues()[0], 'Players collectively demolish extra food(4,4)')
+
+	def test_solution_extracted(self):
+		self.extractor.parse(self.xml)
+		self.assertEqual(self.extractor.across_solutions()[0], 'SIDEDISH')
 
 if __name__ == '__main__':
 	unittest.main()

@@ -17,6 +17,10 @@ class Crossword(db.Model):
 	down_x = db.ListProperty(int)
 	down_y = db.ListProperty(int)
 	down_nums = db.ListProperty(int)
+	across_to_across_links = db.ListProperty(int)
+	across_to_down_links = db.ListProperty(int)
+	down_to_down_links = db.ListProperty(int)
+	down_to_across_links = db.ListProperty(int)
 	date = db.DateTimeProperty(auto_now_add=True)
 	xml = db.TextProperty()
 
@@ -31,10 +35,10 @@ class Crossword(db.Model):
 		return self.num_grid_cols * 2;
 
 	def grid_rows(self):
-		return range(1, self.num_grid_rows + 1)
+		return range(0, self.num_grid_rows)
 
 	def grid_cols(self):
-		return range(1, self.num_grid_cols + 1)
+		return range(0, self.num_grid_cols)
 
 	def across_words(self):
 		return [Word(self.across_nums[i], self.across_clues[i], self.across_solutions[i], self.across_x[i], self.across_y[i], "across") for i in range(len(self.across_nums))]
@@ -96,7 +100,7 @@ class Crossword(db.Model):
 			current_word = ""
 			for col_num in self.grid_cols():
 				letter = letters[col_num, row_num]
-				next_letter_is_empty = col_num == self.num_grid_cols or len(letters[col_num + 1, row_num]) == 0
+				next_letter_is_empty = col_num == self.num_grid_cols - 1 or len(letters[col_num + 1, row_num]) == 0
 				if in_word:
 					current_word = current_word + letter
 					if next_letter_is_empty:
@@ -116,7 +120,7 @@ class Crossword(db.Model):
 			current_word = ""
 			for row_num in self.grid_rows():
 				letter = letters[col_num, row_num]
-				next_letter_is_empty = row_num == self.num_grid_rows or len(letters[col_num, row_num + 1]) == 0
+				next_letter_is_empty = row_num == self.num_grid_rows - 1 or len(letters[col_num, row_num + 1]) == 0
 				if in_word:
 					current_word = current_word + letter
 					if next_letter_is_empty:
@@ -163,19 +167,19 @@ class Crossword(db.Model):
 
 		blanks = {}
 		for row_num in self.grid_rows():
-			blanks[row_num] = []
+			blanks[row_num + 1] = []
 			for col_num in self.grid_cols():
 				if str(col_num) + '-' + str(row_num) not in across_letters:
 					if str(col_num) + '-' + str(row_num) not in down_letters:
-						blanks[row_num].append(col_num)
+						blanks[row_num + 1].append(col_num + 1)
 		return blanks
 				
 class Word:
 	def dis_x(self):
-		return (self.x - 1) * 2
+		return (self.x) * 2
 
 	def dis_y(self):
-		return (self.y - 1) * 2
+		return (self.y) * 2
 
 	def __init__(self, num, clue, solution, x, y, direction):
 		self.number = num
@@ -184,6 +188,12 @@ class Word:
 		self.x = x
 		self.y = y
 		self.direction = direction
+
+	def human_x(self):
+		return self.x + 1
+
+	def human_y(self):
+		return self.y + 1
 
 	def __cmp__(self, other):
 		y_comparison = cmp(self.y, other.y)

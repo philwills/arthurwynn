@@ -1,5 +1,5 @@
 from arthurwynn.controller.modelview import ModelAndViewPage
-from arthurwynn.controller.upload import CrosswordUploadPage
+from arthurwynn.controller.upload import CrosswordUploadPage, LegacyCrosswordUploadPage
 from arthurwynn.controller.create import CrosswordCreationPage, CrosswordGridPage, CrosswordCluePage
 from arthurwynn.controller.display import CrosswordPage, MicroappCrosswordPage, BlindCrosswordPage, AnagramPage
 from arthurwynn.controller.list import CrosswordListPage, CrosswordAtomPage, MicroappLatestPage
@@ -23,6 +23,7 @@ application = webapp.WSGIApplication([
                                     ('/create/grid', CrosswordGridPage),
                                     ('/create/clues', CrosswordCluePage),
                                     ('/upload', CrosswordUploadPage),
+                                    ('/upload/legacy', LegacyCrosswordUploadPage),
                                     ('/atom.xml', CrosswordAtomPage),
 									], debug=True)
 		

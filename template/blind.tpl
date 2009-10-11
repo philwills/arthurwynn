@@ -22,13 +22,13 @@
 		<h4>Across</h4>
 		<ul>
 		{% for word in crossword.across_words %}
-			<li>{{ word.number }} ({{ word.y }}{{ word.x|alphabetise }}) {{ word.clue }} </li>
+			<li>{{ word.number }} ({{ word.human_y }}{{ word.human_x|alphabetise }}) {{ word.clue }} </li>
 		{% endfor %}
 		</ul>
 		<h4>Down</h4>
 		<ul>
 		{% for word in crossword.down_words %}
-			<li>{{ word.number }} ({{ word.y }}{{ word.x|alphabetise }}) {{ word.clue }} </li>
+			<li>{{ word.number }} ({{ word.human_y }}{{ word.human_x|alphabetise }}) {{ word.clue }} </li>
 		{% endfor %}
 		</ul>
 	</body>
