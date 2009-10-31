@@ -31,7 +31,7 @@ class CrosswordUploadPage(ModelAndViewPage):
 		crossword.xml = xml.decode('utf-8')
 		self.repository.add_or_update(crossword)
 		if (self.response):
-			self.redirect('/microapp/resources/' + crossword.type + '/' + str(crossword.number))
+			self.redirect('/' + crossword.type + '/' + str(crossword.number))
 
 class LegacyCrosswordUploadPage(ModelAndViewPage):
 	def __init__(self):
@@ -66,5 +66,5 @@ class LegacyCrosswordUploadPage(ModelAndViewPage):
 		crossword.xml = xml
 		self.repository.add_or_update(crossword)
 		if (self.response):
-			self.redirect('/microapp/resources/' + crossword.type + '/' + str(crossword.number))
+			self.redirect('/' + crossword.type + '/' + str(crossword.number))
 

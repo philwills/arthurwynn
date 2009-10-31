@@ -15,16 +15,16 @@ template.register_template_library('common.filters')
 application = webapp.WSGIApplication([
 									('/', CrosswordListPage),
 									('/crossword', CrosswordPage),
-									(r'/microapp/component/(.*)/latest', MicroappLatestPage),
-									(r'/microapp/resources/(.*)/(.*)/blind', BlindCrosswordPage),
-									(r'/microapp/resources/(.*)/(.*)', MicroappCrosswordPage),
-									('/microapp/resources/anagram', AnagramPage),
+									(r'/(.*)/latest', MicroappLatestPage),
+									(r'/(.*)/(.*)/blind', BlindCrosswordPage),
+									('/anagram', AnagramPage),
                                     ('/create', CrosswordCreationPage),
                                     ('/create/grid', CrosswordGridPage),
                                     ('/create/clues', CrosswordCluePage),
                                     ('/upload', CrosswordUploadPage),
                                     ('/upload/legacy', LegacyCrosswordUploadPage),
                                     ('/atom.xml', CrosswordAtomPage),
+									(r'/(.*)/(.*)', MicroappCrosswordPage),
 									], debug=True)
 		
 def main():
