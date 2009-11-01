@@ -38,17 +38,23 @@ function crossword_init() {
 	});
 
 	inputs.bind('keyup', function(e) {
-		copyChangeToIntersectingLetter(jQ(e.target));
-		focusOnNextInput(jQ(e.target));
+		var key = e.keyCode || e.charCode;
+		if (is_letter(key)) {
+			copyChangeToIntersectingLetter(jQ(e.target));
+			focusOnNextInput(jQ(e.target));
+		}
 	});
+	function is_letter(key) {
+		return (64 < key && key < 91) || (96 < key && key < 123);
+	}
 
-	inputs.bind('keyup', 'tab', function(e) {
+	inputs.bind('keydown', 'tab', function(e) {
 		if (jQ(e.target).closest('div').next('div')) {
 			jQ(e.target).closest('div').next('div').find('input:first').focus();
 		}
 		return false;
 	});
-	inputs.bind('keyup', 'Shift+tab', function(e) {
+	inputs.bind('keydown', 'Shift+tab', function(e) {
 		if (jQ(e.target).closest('div').prev('div')) {
 			jQ(e.target).closest('div').prev('div').find('input:first').focus();
 		}
