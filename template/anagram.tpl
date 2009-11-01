@@ -1,33 +1,35 @@
 <html>
 <head>
 <title>Anagram</title>
-<script type="text/javascript" src="/microapp/assets/js/moo.js"></script>
+<script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript">
-window.addEvent('domready', activate_shuffle);
-window.addEvent('domready', activate_insert);
-window.addEvent('domready', setup_letters);
+var jQ = jQuery.noConflict();
+
+jQ('ready', activate_shuffle);
+jQ('ready', activate_insert);
+jQ('ready', setup_letters);
 
 function activate_shuffle() {
-	$('shuffle').addEvent('click', shuffle_letters);
+	jQ('#shuffle').bind('click', shuffle_letters);
 }
 
 function activate_insert() {
-	$('insert').addEvent('click', insert_to_opener);
+	jQ('#insert').bind('click', insert_to_opener);
 }
 
 function setup_letters() {
-	$('anagrams').getElements('input').addEvent('keyup', arrange_letters);
+	jQ('#anagrams').find('input').bind('keyup', arrange_letters);
 }
 
 function shuffle_letters() {
 	var letters = [];
-	get_anagram_inputs().each(function(input) {
+	get_anagram_inputs().each(function(index, input) {
 		if (input.type === 'text' && input.className !== 'fixed') {
 			letters[letters.length] = input.value;
 		}
 	});
 	shuffle(letters);
-	get_anagram_inputs().each(function(input) {
+	get_anagram_inputs().each(function(index, input) {
 		if (input.className !== 'fixed') {
 			input.value = letters.pop();
 		}
@@ -38,7 +40,7 @@ function shuffle_letters() {
 
 function insert_to_opener() {
 	var letters = [];
-	get_anagram_inputs().each(function(input) {
+	get_anagram_inputs().each(function(index, input) {
 		letters[letters.length] = input.value;
 	});
 	window.opener.insert_from_anagram(letters);
@@ -58,29 +60,23 @@ function shuffle ( arr ) {
 }
 
 function arrange_letters() {
-	$('letters').empty();
+	jQ('#letters').empty();
 	var unfixed_letters = [];
-	get_anagram_inputs().each(function(input) {
+	get_anagram_inputs().each(function(index, input) {
 		if (input.className !== 'fixed' && input.value !== '') {
 			unfixed_letters.push(input.value);
 		}
 	});
 	var radius = 8 * get_anagram_inputs().length;
-	unfixed_letters.each(function(letter, index) {
-		var positioned_letter = new Element('span', {
-			'html': letter,
-		});
-		positioned_letter.setStyles({
-			'position': 'absolute',
-			'top': radius * Math.sin(2 * Math.PI * index / unfixed_letters.length - Math.PI / 2) + radius + 15,
-			'left': radius * Math.cos(2 * Math.PI * index / unfixed_letters.length - Math.PI / 2) + radius + 15,
-		});
-		positioned_letter.inject($('letters'));
+	jQuery.each(unfixed_letters, function(index, letter) {
+		var top = radius * Math.sin(2 * Math.PI * index / unfixed_letters.length - Math.PI / 2) + radius + 15;
+		var left =  radius * Math.cos(2 * Math.PI * index / unfixed_letters.length - Math.PI / 2) + radius + 15;
+		jQ('#letters').prepend('<span style="position:absolute;top:' + top + ';left:' + left + ';">' + letter +'</span>');
 	});
 }
 
 function get_anagram_inputs() {
-	return $('anagrams').getElements('input');
+	return jQ('#anagrams').find('input');
 }
 </script>
 <style type="text/css">
