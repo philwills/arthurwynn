@@ -2,12 +2,12 @@
 <html>
 	<head>
 		<title>Crossword {{crossword.name}}</title>
-		<link rel="stylesheet" type="text/css" href="/microapp/assets/css/crossword.css"/>
-		<link rel="stylesheet" type="text/css" href="/microapp/assets/css/print.css" media="print" />
-		<script type="text/javascript" src="/microapp/assets/js/jquery.js"></script>
-		<script type="text/javascript" src="/microapp/assets/js/jquery.hotkeys-0.7.9.js"></script>
-		<script type="text/javascript" src="/microapp/assets/js/jquery.cookie.js"></script>
-		<script type="text/javascript" src="/microapp/assets/js/crossword.js"></script>
+		<link rel="stylesheet" type="text/css" href="/css/crossword.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/print.css" media="print" />
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/jquery.hotkeys-0.7.9.js"></script>
+		<script type="text/javascript" src="/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="/js/crossword.js"></script>
 	</head>
 	<body>
 		<script type="text/javascript">

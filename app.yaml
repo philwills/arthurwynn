@@ -8,10 +8,10 @@ handlers:
   static_files: microapp/microapp.xml
   upload: microapp/microapp.xml
 
-- url: /microapp/assets/css
+- url: /css
   static_dir: css
 
-- url: /microapp/assets/js
+- url: /js
   static_dir: js
 
 - url: /.*
