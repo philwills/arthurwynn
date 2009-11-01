@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<title>Crossword {{crossword.name}}</title>
-		<link rel="stylesheet" type="text/css" href="/microapp/assets/css/crossword.css"/>
-		<link rel="stylesheet" type="text/css" href="/microapp/assets/css/print.css" media="print" />
+		<link rel="stylesheet" type="text/css" href="/css/crossword.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/print.css" media="print" />
 	</head>
 	<body>
 	<h1>{{ crossword.title }}</h1>
