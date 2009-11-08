@@ -119,11 +119,11 @@ function crossword_init() {
 	});
 
 	jQ('#cheat').bind('click', function(e) {
-		active_word.find('input').each(function(index, input) {
-			var square = jQ(input);
-			square.val(solutions[square.attr('id')].toLowerCase());
-			copyChangeToIntersectingLetter(square);
-		});
+		populate_solution_for(active_word.find('input'));
+	});
+
+	jQ('#solution').bind('click', function(e) {
+		populate_solution_for(inputs);
 	});
 
 	jQ('#clear').bind('click', function(e) {
@@ -220,16 +220,24 @@ function insert_from_anagram(letter_array) {
 	});
 }
 
-function clear(input_array) {
-	input_array.each(function(index, input) {
+function clear(inputs) {
+	inputs.each(function(index, input) {
 		var square = jQ(input);
 		square.val('');
 		copyChangeToIntersectingLetter(square);
 	});
 }
 
-function check(input_array) {
-	input_array.each(function(index, input) {
+function populate_solution_for(inputs) {
+	inputs.each(function(index, input) {
+		var square = jQ(input);
+		square.val(solutions[square.attr('id')].toLowerCase());
+		copyChangeToIntersectingLetter(square);
+	});
+}
+
+function check(inputs) {
+	inputs.each(function(index, input) {
 		var square = jQ(input);
 		if (square.val().toLowerCase() != solutions[square.attr('id')].toLowerCase()) {
 			square.val('');

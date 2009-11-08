@@ -69,6 +69,7 @@
 		<input id="save" type="button" value="Save" />
 		<input id="revert-to-saved" type="button" value="Revert to Saved" />
 		<input id="anagrams" type="button" value="Anagrams" />
+		<input id="solution" type="button" value="Solution" />
 	</div>
 	</form>
 	</body>
