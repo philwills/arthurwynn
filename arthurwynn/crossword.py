@@ -80,7 +80,7 @@ class Crossword(db.Model):
 		return intersections
 
 	def url(self):
-		return '/microapp/resources/' + self.type + '/' + str(self.number)
+		return '/' + self.type + '/' + str(self.number)
 
 	def title(self):
 		if self.type is None:

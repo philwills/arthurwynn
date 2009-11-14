@@ -44,7 +44,7 @@ class CrosswordTest(unittest.TestCase):
 		crossword = Crossword()
 		crossword.type = 'quick'
 		crossword.number = 42
-		self.assertEqual(crossword.url(), '/microapp/resources/quick/42')
+		self.assertEqual(crossword.url(), '/quick/42')
 
 	def test_should_provide_helpful_title_with_creator(self):
 		crossword = Crossword()
