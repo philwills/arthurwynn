@@ -5,7 +5,7 @@ class CrosswordDotInfoXmlExtractor:
     def parse(self, xml_string):
         self.root = fromstring(xml_string)
         self.namespace = "{http://crossword.info/xml/rectangular-puzzle}"
-        self.puzzle = self.root.find("./" + self.namespace + "rectangular-puzzle/")
+        self.puzzle = self.root.find("./" + self.namespace + "rectangular-puzzle")
         self.grid = self.puzzle.find(
             "./" + self.namespace + "crossword/" + self.namespace + "grid"
         )
