@@ -3,7 +3,8 @@ from arthurwynn.controller.modelview import ModelAndViewPage
 from arthurwynn.crossword import *
 from arthurwynn.crossword_repository import CrosswordRepository
 
-from extractor import *
+from CrosswordDotInfoXmlExtractor import CrosswordDotInfoXmlExtractor
+from GuCrosswordXmlExtractor import GuCrosswordXmlExtractor
 
 class CrosswordUploadPage(ModelAndViewPage):
 	def __init__(self):
