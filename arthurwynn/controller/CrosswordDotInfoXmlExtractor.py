@@ -13,7 +13,7 @@ class CrosswordDotInfoXmlExtractor:
         self.extract_clues()
 
     def title(self):
-        return self.type().capitalize() + " Crossword No. " + str(self.identifier())
+        return f"{self.type().capitalize()} Crossword No. {self.identifier()}"
 
     def type(self):
         titleText = self.puzzle.find(f"./{self.ns}metadata/{self.ns}title").text
