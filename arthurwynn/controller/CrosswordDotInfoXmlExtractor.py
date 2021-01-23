@@ -66,10 +66,11 @@ class CrosswordDotInfoXmlExtractor:
             and clue_numbers[1] not in clue_dict
             and not clue_numbers[1].endswith("down")
         ):
-            clue_dict[clue_numbers[1]] = "See " + clue_numbers[0]
+            clue_dict[clue_numbers[1]] = f"See {clue_numbers[0]}"
 
     def get_clue_text(self, clue):
-        if clue.get("format"):
-            return clue.text + " (" + clue.get("format") + ")"
+        format = clue.get("format")
+        if format:
+            return f"{clue.text} ({format})"
         else:
             return clue.text
