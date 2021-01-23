@@ -2,13 +2,12 @@ from xml.etree.ElementTree import fromstring
 
 
 class CrosswordDotInfoXmlExtractor:
+    ns = "{http://crossword.info/xml/rectangular-puzzle}"
+
     def parse(self, xml_string):
         self.root = fromstring(xml_string)
-        self.namespace = "{http://crossword.info/xml/rectangular-puzzle}"
-        self.puzzle = self.root.find("./" + self.namespace + "rectangular-puzzle")
-        self.grid = self.puzzle.find(
-            "./" + self.namespace + "crossword/" + self.namespace + "grid"
-        )
+        self.puzzle = self.root.find(f"./{self.ns}rectangular-puzzle")
+        self.grid = self.puzzle.find(f"./{self.ns}crossword/{self.ns}grid")
         self.across_clue_dict = {}
         self.down_clue_dict = {}
         self.extract_clues()
@@ -17,23 +16,15 @@ class CrosswordDotInfoXmlExtractor:
         return self.type().capitalize() + " Crossword No. " + str(self.identifier())
 
     def type(self):
-        titleText = self.puzzle.find(
-            "./" + self.namespace + "metadata/" + self.namespace + "title"
-        ).text
+        titleText = self.puzzle.find(f"./{self.ns}metadata/{self.ns}title").text
         if titleText[0:4] == "gdn.":
             return titleText[4:]
 
     def creator(self):
-        return self.puzzle.find(
-            "./" + self.namespace + "metadata/" + self.namespace + "creator"
-        ).text
+        return self.puzzle.find(f"./{self.ns}metadata/{self.ns}creator").text
 
     def identifier(self):
-        return int(
-            self.puzzle.find(
-                "./" + self.namespace + "metadata/" + self.namespace + "identifier"
-            ).text
-        )
+        return int(self.puzzle.find(f"./{self.ns}metadata/{self.ns}identifier").text)
 
     def width(self):
         return int(self.grid.get("width"))
@@ -43,7 +34,7 @@ class CrosswordDotInfoXmlExtractor:
 
     def letters(self):
         letters = {}
-        for cell in self.grid.findall("./" + self.namespace + "cell"):
+        for cell in self.grid.findall(f"./{self.ns}cell"):
             if cell.get("solution"):
                 letters[int(cell.get("x")) - 1, int(cell.get("y")) - 1] = cell.get(
                     "solution"
@@ -59,17 +50,12 @@ class CrosswordDotInfoXmlExtractor:
         return self.down_clue_dict
 
     def extract_clues(self):
-        for clues in self.puzzle.findall(
-            "./" + self.namespace + "crossword/" + self.namespace + "clues"
-        ):
-            if (
-                clues.find("./" + self.namespace + "title/" + self.namespace + "b").text
-                == "Across"
-            ):
-                for clue in clues.findall("./" + self.namespace + "clue"):
+        for clues in self.puzzle.findall(f"./{self.ns}crossword/{self.ns}clues"):
+            if clues.find(f"./{self.ns}title/{self.ns}b").text == "Across":
+                for clue in clues.findall(f"./{self.ns}clue"):
                     self.add_clue(self.across_clue_dict, clue)
             else:
-                for clue in clues.findall("./" + self.namespace + "clue"):
+                for clue in clues.findall(f"./{self.ns}clue"):
                     self.add_clue(self.down_clue_dict, clue)
 
     def add_clue(self, clue_dict, clue):
