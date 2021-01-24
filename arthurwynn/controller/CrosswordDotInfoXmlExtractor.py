@@ -1,5 +1,7 @@
 from xml.etree.ElementTree import fromstring
 
+from typing import Dict, Tuple
+
 
 class CrosswordDotInfoXmlExtractor:
     ns = "{http://crossword.info/xml/rectangular-puzzle}"
@@ -10,29 +12,31 @@ class CrosswordDotInfoXmlExtractor:
         self.grid = self.puzzle.find(f"./{self.ns}crossword/{self.ns}grid")
         self.across_clue_dict = {}
         self.down_clue_dict = {}
-        self.extract_clues()
+        self._extract_clues()
 
-    def title(self):
+    def title(self) -> str:
         return f"{self.type().capitalize()} Crossword No. {self.identifier()}"
 
-    def type(self):
+    def type(self) -> str:
         titleText = self.puzzle.find(f"./{self.ns}metadata/{self.ns}title").text
         if titleText[0:4] == "gdn.":
             return titleText[4:]
+        else:
+            return ""
 
-    def creator(self):
+    def creator(self) -> str:
         return self.puzzle.find(f"./{self.ns}metadata/{self.ns}creator").text
 
-    def identifier(self):
+    def identifier(self) -> int:
         return int(self.puzzle.find(f"./{self.ns}metadata/{self.ns}identifier").text)
 
-    def width(self):
+    def width(self) -> int:
         return int(self.grid.get("width"))
 
-    def height(self):
+    def height(self) -> int:
         return int(self.grid.get("height"))
 
-    def letters(self):
+    def letters(self) -> Dict[Tuple[int, int], str]:
         letters = {}
         for cell in self.grid.findall(f"./{self.ns}cell"):
             if cell.get("solution"):
@@ -43,24 +47,24 @@ class CrosswordDotInfoXmlExtractor:
                 letters[int(cell.get("x")) - 1, int(cell.get("y")) - 1] = ""
         return letters
 
-    def across_clues(self):
+    def across_clues(self) -> Dict[int, str]:
         return self.across_clue_dict
 
-    def down_clues(self):
+    def down_clues(self) -> Dict[int, str]:
         return self.down_clue_dict
 
-    def extract_clues(self):
+    def _extract_clues(self):
         for clues in self.puzzle.findall(f"./{self.ns}crossword/{self.ns}clues"):
             if clues.find(f"./{self.ns}title/{self.ns}b").text == "Across":
                 for clue in clues.findall(f"./{self.ns}clue"):
-                    self.add_clue(self.across_clue_dict, clue)
+                    self._add_clue(self.across_clue_dict, clue)
             else:
                 for clue in clues.findall(f"./{self.ns}clue"):
-                    self.add_clue(self.down_clue_dict, clue)
+                    self._add_clue(self.down_clue_dict, clue)
 
-    def add_clue(self, clue_dict, clue):
+    def _add_clue(self, clue_dict, clue):
         clue_numbers = clue.get("number").split(",")
-        clue_dict[clue_numbers[0]] = self.get_clue_text(clue)
+        clue_dict[clue_numbers[0]] = self._get_clue_text(clue)
         if (
             len(clue_numbers) > 1
             and clue_numbers[1] not in clue_dict
@@ -68,7 +72,7 @@ class CrosswordDotInfoXmlExtractor:
         ):
             clue_dict[clue_numbers[1]] = f"See {clue_numbers[0]}"
 
-    def get_clue_text(self, clue):
+    def _get_clue_text(self, clue):
         format = clue.get("format")
         if format:
             return f"{clue.text} ({format})"
