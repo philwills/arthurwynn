@@ -1,36 +1,63 @@
 from xml.etree.ElementTree import fromstring
 
-from typing import Dict, Tuple
+from typing import Dict, Optional, Tuple
 
 from dataclasses import dataclass
+from enum import Enum, unique
 
+@unique
+class CrosswordType(Enum):
+    QUICK = "quick"
+    CRYPTIC = "cryptic"
 
 @dataclass(frozen=True)
 class Coordinate:
     x: int
     y: int
 
+@dataclass(frozen=True)
+class Crossword:
+    title: str
+    type: Optional[CrosswordType]
+    identifier: int
+    creator: str
+    height: int
+    width: int
+    letters: Dict[Coordinate, str]
+    across_clues: Dict[str, str]
+    down_clues: Dict[str, str]
 
 class CrosswordDotInfoXmlExtractor:
     ns = "{http://crossword.info/xml/rectangular-puzzle}"
 
-    def parse(self, xml_string):
+    def parse(self, xml_string) -> Crossword:
         self.root = fromstring(xml_string)
         self.puzzle = self.root.find(f"./{self.ns}rectangular-puzzle")
         self.grid = self.puzzle.find(f"./{self.ns}crossword/{self.ns}grid")
         self.across_clue_dict = {}
         self.down_clue_dict = {}
         self._extract_clues()
+        return Crossword(
+            title=self.title(),
+            type = self.type(),
+            identifier = self.identifier(),
+            creator = self.creator(),
+            height = self.height,
+            width = self.width,
+            letters = self.letters(),
+            across_clues = self.across_clues(),
+            down_clues = self.down_clues(),
+        )
 
     def title(self) -> str:
-        return f"{self.type().capitalize()} Crossword No. {self.identifier()}"
+        return f"{self.type()._value_.capitalize()} Crossword No. {self.identifier()}"
 
-    def type(self) -> str:
+    def type(self) -> Optional[CrosswordType]:
         titleText = self.puzzle.find(f"./{self.ns}metadata/{self.ns}title").text
         if titleText[0:4] == "gdn.":
-            return titleText[4:]
+            return CrosswordType(titleText[4:])
         else:
-            return ""
+            return None
 
     def creator(self) -> str:
         return self.puzzle.find(f"./{self.ns}metadata/{self.ns}creator").text
