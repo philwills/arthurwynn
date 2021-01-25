@@ -46,8 +46,8 @@ def parse(xml_string: str) -> Optional[Crossword]:
             type=_type(puzzle),
             identifier=_identifier(puzzle),
             creator=_creator(puzzle),
-            height=_height(grid),
-            width=_width(grid),
+            height=int(grid.get("height")),
+            width=int(grid.get("width")),
             letters=_letters(grid),
             across_clues=across_clues,
             down_clues=down_clues,
@@ -76,14 +76,6 @@ def _creator(puzzle) -> str:
 
 def _identifier(puzzle) -> int:
     return int(puzzle.find(f"./{_ns}metadata/{_ns}identifier").text)
-
-
-def _width(grid) -> int:
-    return int(grid.get("width"))
-
-
-def _height(grid) -> int:
-    return int(grid.get("height"))
 
 
 def _letters(grid) -> Dict[Coordinate, str]:
