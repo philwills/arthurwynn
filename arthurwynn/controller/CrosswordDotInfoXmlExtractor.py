@@ -34,27 +34,32 @@ class Crossword:
 _ns = "{http://crossword.info/xml/rectangular-puzzle}"
 
 
-def parse(xml_string) -> Crossword:
+def parse(xml_string: str) -> Optional[Crossword]:
     root = fromstring(xml_string)
     puzzle = root.find(f"./{_ns}rectangular-puzzle")
-    grid = puzzle.find(f"./{_ns}crossword/{_ns}grid")
-    (across_clues, down_clues) = _extract_clues(puzzle)
+    if puzzle:
+        grid = puzzle.find(f"./{_ns}crossword/{_ns}grid")
+        (across_clues, down_clues) = _extract_clues(puzzle)
 
-    return Crossword(
-        title=_title(puzzle),
-        type=_type(puzzle),
-        identifier=_identifier(puzzle),
-        creator=_creator(puzzle),
-        height=_height(grid),
-        width=_width(grid),
-        letters=_letters(grid),
-        across_clues=across_clues,
-        down_clues=down_clues,
-    )
+        return Crossword(
+            title=_title(puzzle),
+            type=_type(puzzle),
+            identifier=_identifier(puzzle),
+            creator=_creator(puzzle),
+            height=_height(grid),
+            width=_width(grid),
+            letters=_letters(grid),
+            across_clues=across_clues,
+            down_clues=down_clues,
+        )
+    else:
+        return None
 
 
 def _title(puzzle) -> str:
-    return f"{_type(puzzle)._value_.capitalize()} Crossword No. {_identifier(puzzle)}"
+    type = _type(puzzle)
+    type_name = type._value_.capitalize() if type else ""
+    return f"{type_name} Crossword No. {_identifier(puzzle)}"
 
 
 def _type(puzzle) -> Optional[CrosswordType]:
@@ -93,9 +98,9 @@ def _letters(grid) -> Dict[Coordinate, str]:
     return letters
 
 
-def _extract_clues(puzzle) -> Tuple[Dict[int, str], Dict[int, str]]:
-    across_clue_dict = {}
-    down_clue_dict = {}
+def _extract_clues(puzzle) -> Tuple[Dict[str, str], Dict[str, str]]:
+    across_clue_dict: Dict[str, str] = {}
+    down_clue_dict: Dict[str, str] = {}
     for clues in puzzle.findall(f"./{_ns}crossword/{_ns}clues"):
         if clues.find(f"./{_ns}title/{_ns}b").text == "Across":
             for clue in clues.findall(f"./{_ns}clue"):
