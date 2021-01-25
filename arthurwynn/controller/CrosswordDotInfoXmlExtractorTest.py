@@ -2,7 +2,7 @@ import unittest
 
 import os
 
-from CrosswordDotInfoXmlExtractor import CrosswordDotInfoXmlExtractor
+from CrosswordDotInfoXmlExtractor import CrosswordDotInfoXmlExtractor, Coordinate
 
 
 class CrosswordDotInfoXmlExtractorTest(unittest.TestCase):
@@ -47,12 +47,12 @@ class CrosswordDotInfoXmlExtractorTest(unittest.TestCase):
     def test_squares_with_a_letter_should_have_letter_in_dictionary(self):
         self.extractor.parse(self.xml)
         letters = self.extractor.letters()
-        self.assertEqual(letters[0, 0], "D")
+        self.assertEqual(letters[Coordinate(0, 0)], "D")
 
     def test_squares_with_no_letter_should_be_empty_string_in_dictionary(self):
         self.extractor.parse(self.xml)
         letters = self.extractor.letters()
-        self.assertEqual(letters[0, 8], "")
+        self.assertEqual(letters[Coordinate(0, 8)], "")
 
     def test_clues_should_be_in_directional_dictionaries_including_length(self):
         self.extractor.parse(self.xml)

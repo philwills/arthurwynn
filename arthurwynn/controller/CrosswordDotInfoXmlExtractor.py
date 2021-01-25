@@ -2,6 +2,14 @@ from xml.etree.ElementTree import fromstring
 
 from typing import Dict, Tuple
 
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class Coordinate:
+    x: int
+    y: int
+
 
 class CrosswordDotInfoXmlExtractor:
     ns = "{http://crossword.info/xml/rectangular-puzzle}"
@@ -36,15 +44,15 @@ class CrosswordDotInfoXmlExtractor:
     def height(self) -> int:
         return int(self.grid.get("height"))
 
-    def letters(self) -> Dict[Tuple[int, int], str]:
+    def letters(self) -> Dict[Coordinate, str]:
         letters = {}
         for cell in self.grid.findall(f"./{self.ns}cell"):
             if cell.get("solution"):
-                letters[int(cell.get("x")) - 1, int(cell.get("y")) - 1] = cell.get(
-                    "solution"
-                )
+                letters[
+                    Coordinate(int(cell.get("x")) - 1, int(cell.get("y")) - 1)
+                ] = cell.get("solution")
             else:
-                letters[int(cell.get("x")) - 1, int(cell.get("y")) - 1] = ""
+                letters[Coordinate(int(cell.get("x")) - 1, int(cell.get("y")) - 1)] = ""
         return letters
 
     def across_clues(self) -> Dict[int, str]:
